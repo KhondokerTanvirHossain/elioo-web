@@ -64,8 +64,8 @@ a { color: inherit; }
 }
 .m-i { position: relative; display: inline-block; }
 .m-planet {
-  position: absolute; left: 50%; top: -.28em;
-  width: .42em; height: .42em; transform: translateX(-50%);
+  position: absolute; left: 50%; top: -.12em;
+  width: .46em; height: .46em; transform: translateX(-50%);
   border-radius: 50%;
   background: radial-gradient(circle at 35% 30%, #FFE9A8, var(--sun) 55%, #C98A1E);
   box-shadow: 0 0 10px rgba(255, 209, 102, .7);
