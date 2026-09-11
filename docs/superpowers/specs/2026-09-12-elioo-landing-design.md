@@ -1,11 +1,11 @@
-# elioo.org landing page, design spec
+# eliooo.org landing page, design spec
 
 Date: 2026-09-12
 Status: approved
 
 ## Purpose
 
-elioo.org is the front door for every product Tanvir builds under the elioo brand. Today nothing is live under the domain and the root points at a Hostinger placeholder. This page replaces it with a single-page studio site that sells the vision, lists the planned bots, and gives visitors one way to reach out.
+eliooo.org is the front door for every product Tanvir builds under the elioo brand. Today nothing is live under the domain and the root points at a Hostinger placeholder. This page replaces it with a single-page studio site that sells the vision, lists the planned bots, and gives visitors one way to reach out.
 
 Voice: **elioo the studio** ("elioo builds AI companions"), with Tanvir as founder in one section near the bottom.
 
@@ -79,7 +79,7 @@ v1: no email capture. "Say hi" is a `mailto:` link. Reason: no backend, nothing 
 
 - Plain HTML, CSS, vanilla JS. No framework, no build step.
 - Files: `index.html`, `styles.css`, `main.js`, `favicon.svg`, `og.png`, `vercel.json`.
-- Vercel static deploy from the GitHub repo `elioo-web`, `main` branch, production domain `elioo.org` and `www.elioo.org` (www redirects to apex).
+- Vercel static deploy from the GitHub repo `elioo-web`, `main` branch, production domain `eliooo.org` and `www.eliooo.org` (www redirects to apex).
 - DNS: at Hostinger, point apex A record to Vercel (76.76.21.21) and `www` CNAME to `cname.vercel-dns.com`. Existing subdomain records untouched.
 - `vercel.json`: security headers only (nosniff, frame-deny, referrer-policy). No rewrites.
 

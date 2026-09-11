@@ -1,6 +1,6 @@
 # elioo-web
 
-Single-page site for [elioo.org](https://elioo.org). Plain HTML, CSS and JS. No build step.
+Single-page site for [eliooo.org](https://eliooo.org). Plain HTML, CSS and JS. No build step.
 
 ## Run locally
 

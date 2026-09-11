@@ -1,8 +1,8 @@
-# elioo.org Landing Page Implementation Plan
+# eliooo.org Landing Page Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Ship a single-page static site for elioo.org on Vercel that presents the elioo studio, its three planned bots, its vision, and the founder, in the approved "playful bots in Elio's night sky" visual direction.
+**Goal:** Ship a single-page static site for eliooo.org on Vercel that presents the elioo studio, its three planned bots, its vision, and the founder, in the approved "playful bots in Elio's night sky" visual direction.
 
 **Architecture:** One `index.html` with semantic sections, one `styles.css` holding a token block and section styles, one `main.js` for the canvas star field. No framework, no build step. Tests are a Node test file that reads the HTML and CSS as text and asserts structure, copy and color contrast, plus `html-validate` for markup validity.
 
@@ -833,7 +833,7 @@ Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>"
 - Modify: `tests/page.test.mjs` (append)
 
 **Interfaces:**
-- Produces: `og.png` 1200x630 at repo root, referenced by absolute URL `https://elioo.org/og.png`.
+- Produces: `og.png` 1200x630 at repo root, referenced by absolute URL `https://eliooo.org/og.png`.
 
 - [ ] **Step 1: Write the failing test**
 
@@ -875,12 +875,12 @@ Expected: FAIL on the new test.
 Insert into `<head>` after the description meta:
 ```html
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="canonical" href="https://elioo.org/">
+  <link rel="canonical" href="https://eliooo.org/">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://elioo.org/">
+  <meta property="og:url" content="https://eliooo.org/">
   <meta property="og:title" content="elioo">
   <meta property="og:description" content="Friendly AI companions for your health, your memory and your money. From Dhaka, for everyone.">
-  <meta property="og:image" content="https://elioo.org/og.png">
+  <meta property="og:image" content="https://eliooo.org/og.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#050B1E">
 ```
@@ -998,7 +998,7 @@ Replace `README.md`:
 ```markdown
 # elioo-web
 
-Single-page site for [elioo.org](https://elioo.org). Plain HTML, CSS and JS. No build step.
+Single-page site for [eliooo.org](https://eliooo.org). Plain HTML, CSS and JS. No build step.
 
 ## Run locally
 
@@ -1055,21 +1055,21 @@ Expected: prompts for login if not logged in (open the URL it prints). Then prin
 
 ```bash
 npx --yes vercel@latest --prod --yes
-npx --yes vercel@latest domains add elioo.org
-npx --yes vercel@latest domains add www.elioo.org
+npx --yes vercel@latest domains add eliooo.org
+npx --yes vercel@latest domains add www.eliooo.org
 ```
 Expected: Vercel prints the DNS records it needs. They match the README table.
 
 - [ ] **Step 5: Update DNS at Hostinger**
 
-In Hostinger's DNS zone for elioo.org: change the apex `A` record to `76.76.21.21`, and set `www` `CNAME` to `cname.vercel-dns.com`. Do not touch other records. Wait for `npx vercel domains inspect elioo.org` to show verified (minutes to an hour).
+In Hostinger's DNS zone for eliooo.org: change the apex `A` record to `76.76.21.21`, and set `www` `CNAME` to `cname.vercel-dns.com`. Do not touch other records. Wait for `npx vercel domains inspect eliooo.org` to show verified (minutes to an hour).
 
 - [ ] **Step 6: Verify live**
 
 ```bash
-curl -sI https://elioo.org | head -5
+curl -sI https://eliooo.org | head -5
 ```
-Expected: `HTTP/2 200`, `x-content-type-options: nosniff`. Open https://elioo.org and https://www.elioo.org (redirects to apex).
+Expected: `HTTP/2 200`, `x-content-type-options: nosniff`. Open https://eliooo.org and https://www.eliooo.org (redirects to apex).
 
 - [ ] **Step 7: Commit anything the CLI changed**
 

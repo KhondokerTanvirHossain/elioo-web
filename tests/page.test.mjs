@@ -97,9 +97,9 @@ test('mute text on the mid-sky background meets WCAG AA (4.5:1)', () => {
 
 test('head carries favicon, canonical and social cards', () => {
   assert.match(html, /<link rel="icon" href="favicon\.svg" type="image\/svg\+xml">/);
-  assert.match(html, /<link rel="canonical" href="https:\/\/elioo\.org\/">/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/eliooo\.org\/">/);
   assert.match(html, /<meta property="og:title" content="elioo">/);
-  assert.match(html, /<meta property="og:image" content="https:\/\/elioo\.org\/og\.png">/);
+  assert.match(html, /<meta property="og:image" content="https:\/\/eliooo\.org\/og\.png">/);
   assert.match(html, /<meta name="twitter:card" content="summary_large_image">/);
 });
 
