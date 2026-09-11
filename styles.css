@@ -1,0 +1,39 @@
+:root {
+  --bg: #050B1E;
+  --bg2: #0D1F4A;
+  --bg3: #12285E;
+  --ink: #EEF1FF;
+  --mute: #A9B4E0;
+  --peri: #A08CFF;
+  --peri2: #D4C8FF;
+  --beam: #9FE3FF;
+  --sun: #FFD166;
+  --coral: #FF7A85;
+  --mint: #5CE8B8;
+  --line: #26377A;
+
+  --display: "Fredoka", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --body: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --gutter: clamp(16px, 4vw, 40px);
+  --max: 1180px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font: 400 16px/1.55 var(--body);
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 55%, var(--bg3) 100%) fixed, var(--bg);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--beam); outline-offset: 3px; border-radius: 4px; }
+
+.wrap { max-width: var(--max); margin: 0 auto; padding-inline: var(--gutter); }
