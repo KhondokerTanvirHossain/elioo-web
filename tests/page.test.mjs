@@ -26,3 +26,17 @@ test('stylesheet defines every palette token from the spec', () => {
 test('body paints its own background from a token', () => {
   assert.match(css, /body\s*{[^}]*background:[^;]*var\(--bg\)/s);
 });
+
+test('nav has wordmark and anchor links to every section', () => {
+  assert.match(html, /<header class="nav">/);
+  assert.match(html, /class="mark"/);
+  for (const id of ['products', 'vision', 'founder', 'contact']) {
+    assert.match(html, new RegExp(`href="#${id}"`), `nav should link to #${id}`);
+  }
+});
+
+test('wordmark spells elioo with a planet on the i and two orb eyes', () => {
+  assert.match(html, /<span class="mark"[^>]*>\s*<span class="m-el">el<\/span>/);
+  assert.match(html, /class="m-planet"/);
+  assert.match(html, /<span class="m-oo"[^>]*>\s*<i><\/i>\s*<i><\/i>\s*<\/span>/);
+});
