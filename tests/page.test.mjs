@@ -94,3 +94,22 @@ test('mute text on the mid-sky background meets WCAG AA (4.5:1)', () => {
   const ratio = (lum('#A9B4E0') + .05) / (lum('#0D1F4A') + .05);
   assert.ok(ratio >= 4.5, `contrast ${ratio.toFixed(2)} below 4.5`);
 });
+
+test('head carries favicon, canonical and social cards', () => {
+  assert.match(html, /<link rel="icon" href="favicon\.svg" type="image\/svg\+xml">/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/elioo\.org\/">/);
+  assert.match(html, /<meta property="og:title" content="elioo">/);
+  assert.match(html, /<meta property="og:image" content="https:\/\/elioo\.org\/og\.png">/);
+  assert.match(html, /<meta name="twitter:card" content="summary_large_image">/);
+});
+
+test('every section has a heading and every image has alt', () => {
+  const sections = [...html.matchAll(/<section id="(\w+)"[\s\S]*?<\/section>/g)];
+  assert.equal(sections.length, 5);
+  for (const m of sections) assert.match(m[0], /<h[12]/, `section ${m[1]} lacks a heading`);
+  for (const img of html.matchAll(/<img [^>]*>/g)) assert.match(img[0], /alt="/, 'img without alt');
+});
+
+test('no element sets a min-width wider than a phone', () => {
+  for (const m of css.matchAll(/min-width:\s*(\d+)px/g)) assert.ok(Number(m[1]) <= 400, `min-width ${m[1]}px`);
+});
