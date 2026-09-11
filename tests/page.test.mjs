@@ -56,3 +56,41 @@ test('hero has headline, sub, two ctas and three bots', () => {
 test('motion stops under prefers-reduced-motion', () => {
   assert.match(css, /@media \(prefers-reduced-motion: reduce\)[^}]*\.bot[^}]*animation:\s*none/s);
 });
+
+test('products section lists Baymax, Ooooo and Scrooge with status', () => {
+  assert.match(html, /<section id="products" class="section">/);
+  const cards = [
+    ['Health', 'Baymax', 'Your personal healthcare buddy. App, web or WhatsApp.', 'Coming 2026'],
+    ['Memory', 'Ooooo', 'Sits in every meeting, remembers everything, answers when asked.', 'In development'],
+    ['Money', 'Scrooge', 'A money manager that actually nags you.', 'Idea stage'],
+  ];
+  for (const [cat, name, pitch, status] of cards) {
+    assert.match(html, new RegExp(`<span class="card-cat[^"]*">[^<]*<i></i>${cat}</span>`), `${name} category`);
+    assert.match(html, new RegExp(`<h3>${name}</h3>`), `${name} title`);
+    assert.ok(html.includes(pitch), `${name} pitch`);
+    assert.match(html, new RegExp(`<span class="soon">${status}</span>`), `${name} status`);
+  }
+});
+
+test('vision, founder, contact and footer exist with required links', () => {
+  assert.match(html, /<section id="vision" class="section">/);
+  assert.match(html, /<h2>Why elioo<\/h2>/);
+  assert.match(html, /<section id="founder" class="section">/);
+  assert.match(html, /src="assets\/tanvir\.jpg"/);
+  assert.match(html, /href="https:\/\/github\.com\/KhondokerTanvirHossain"/);
+  assert.match(html, /href="https:\/\/www\.linkedin\.com\/in\/k-tanvir-hossain\/"/);
+  assert.match(html, /<section id="contact" class="section contact">/);
+  assert.match(html, /Waitlists open per product when each bot is ready\./);
+  assert.match(html, /<footer class="footer">/);
+  assert.match(html, /elioo · Dhaka · 2026/);
+});
+
+test('mute text on the mid-sky background meets WCAG AA (4.5:1)', () => {
+  const lum = (hex) => {
+    const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255)
+      .map((c) => (c <= .03928 ? c / 12.92 : ((c + .055) / 1.055) ** 2.4));
+    return .2126 * r + .7152 * g + .0722 * b;
+  };
+  const ratio = (lum('#A9B4E0') + .05) / (lum('#0D1F4A') + .05);
+  assert.ok(ratio >= 4.5, `contrast ${ratio.toFixed(2)} below 4.5`);
+});

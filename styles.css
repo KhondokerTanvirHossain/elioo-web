@@ -155,3 +155,61 @@ h1 {
   .bot { width: 90px; }
   .bot-ooo { width: 110px; }
 }
+
+/* ---------- sections ---------- */
+.section { padding-block: clamp(48px, 7vw, 88px); }
+.section-head { margin-bottom: 28px; max-width: 60ch; }
+.eyebrow { margin: 0 0 8px; font: 800 12px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--beam); }
+h2 { margin: 0; font: 700 clamp(28px, 3.6vw, 42px)/1.1 var(--display); text-wrap: balance; }
+
+/* ---------- product cards ---------- */
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.card {
+  border: 1px solid var(--line); border-radius: 20px; padding: 22px;
+  background: rgba(13, 31, 74, .55);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  display: flex; flex-direction: column; gap: 6px;
+}
+.card-cat { display: flex; align-items: center; gap: 8px; font: 800 11px/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--mute); margin-bottom: 8px; }
+.card-cat i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.card-health .card-cat i { background: var(--coral); box-shadow: 0 0 8px var(--coral); }
+.card-ooo .card-cat i { background: var(--peri); box-shadow: 0 0 8px var(--peri); }
+.card-money .card-cat i { background: var(--mint); box-shadow: 0 0 8px var(--mint); }
+.card h3 { margin: 0; font: 600 22px/1.2 var(--display); }
+.card p { margin: 0; color: var(--mute); font-size: 15px; font-weight: 600; }
+.soon {
+  align-self: flex-start; margin-top: 10px;
+  font: 800 11px/1 var(--body); letter-spacing: .08em; text-transform: uppercase;
+  color: var(--beam); border: 1px solid rgba(159, 227, 255, .4); padding: 6px 10px; border-radius: 999px;
+}
+
+/* ---------- vision ---------- */
+.vision-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 32px; align-items: start; }
+.prose { max-width: 62ch; font-size: 17px; font-weight: 600; color: var(--mute); }
+.prose p { margin: 0 0 16px; }
+.prose p:last-child { margin-bottom: 0; color: var(--ink); }
+
+/* ---------- founder ---------- */
+.founder-row { display: flex; gap: 28px; align-items: center; }
+.avatar { position: relative; width: 120px; height: 120px; flex: 0 0 120px; border-radius: 50%; box-shadow: 0 0 0 3px var(--peri), 0 0 28px rgba(160, 140, 255, .55); overflow: hidden; background: var(--bg2); }
+.avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.avatar-orb { display: none; position: absolute; inset: 18%; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #fff, var(--beam) 45%, var(--peri) 100%); box-shadow: 0 0 20px var(--beam); }
+.avatar-fallback .avatar-orb { display: block; }
+.founder-line { margin: 10px 0 12px; color: var(--mute); font-weight: 600; max-width: 52ch; }
+.links { display: flex; gap: 18px; margin: 0; font-weight: 800; }
+.links a { color: var(--peri2); }
+
+/* ---------- contact ---------- */
+.contact .sub { margin-top: 10px; }
+.note { margin: 18px 0 0; color: var(--mute); font-size: 14px; font-weight: 600; }
+
+/* ---------- footer ---------- */
+.footer { border-top: 1px solid rgba(38, 55, 122, .5); padding-block: 24px; }
+.footer-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; color: var(--mute); font-size: 14px; font-weight: 600; }
+.footer-link { color: var(--mute); }
+
+@media (max-width: 760px) {
+  .cards { grid-template-columns: 1fr; }
+  .vision-grid { grid-template-columns: 1fr; }
+  .founder-row { flex-direction: column; align-items: flex-start; }
+}
