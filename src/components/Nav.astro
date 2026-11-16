@@ -7,12 +7,14 @@ const links = [
   ...(hasPosts ? [{ key: 'blog', label: 'Blog', href: '/blog' }] : []),
   { key: 'founder', label: 'Founder', href: '/#founder' },
 ];
+const about = { label: 'About me', href: 'https://tanvir.eliooo.org' };
 ---
 <header class="e-nav-wrap" data-nav>
   <nav class="e-nav e-frame" aria-label="Main">
     <Wordmark />
     <ul class="e-nav__links">
       {links.map((l) => <li><a href={l.href} aria-current={current === l.key ? 'page' : undefined}>{l.label}</a></li>)}
+      <li><a href={about.href} rel="me">{about.label} <span aria-hidden="true">↗</span></a></li>
       <li><a class="e-btn e-btn--primary e-btn--small e-nav__cta" href="/#contact">Say hi <span class="e-arrow" aria-hidden="true">↗</span></a></li>
     </ul>
     <button class="e-btn e-btn--ghost e-btn--small e-nav__menu" type="button" aria-haspopup="dialog" data-menu-open>Menu</button>
@@ -24,6 +26,7 @@ const links = [
     </div>
     <ul class="e-menu__links e-frame">
       {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      <li><a href={about.href} rel="me">{about.label} <span aria-hidden="true">↗</span></a></li>
       <li><a href="/#contact">Say hi</a></li>
     </ul>
   </dialog>
