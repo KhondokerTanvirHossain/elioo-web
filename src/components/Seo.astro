@@ -1,12 +1,13 @@
 ---
-interface Props { title: string; description: string; path: string; ogImage?: string; jsonLd?: object[] }
-const { title, description, path, ogImage = '/og.png', jsonLd = [] } = Astro.props;
+interface Props { title: string; description: string; path: string; ogImage?: string; jsonLd?: object[]; noindex?: boolean }
+const { title, description, path, ogImage = '/og.png', jsonLd = [], noindex = false } = Astro.props;
 const site = Astro.site ?? new URL('https://eliooo.org');
 const canonical = new URL(path, site).href.replace(/\/$/, path === '/' ? '/' : '');
 const image = new URL(ogImage, site).href;
 ---
 <title>{title}</title>
 <meta name="description" content={description} />
+{noindex && <meta name="robots" content="noindex" />}
 <link rel="canonical" href={canonical} />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <meta property="og:type" content="website" />

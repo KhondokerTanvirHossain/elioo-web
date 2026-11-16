@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+import { products } from '../data/products';
+---
+<Base title="Not found · elioo" description="This page does not exist. Here are the four products and the way home." path="/404" noindex>
+  <section class="e-frame e-section">
+    <p class="e-eyebrow">404</p>
+    <h1 class="e-page-title">Not <span class="e-accent">here.</span></h1>
+    <p class="e-empty">That page does not exist. Try one of the products, or go home.</p>
+    <ul class="e-404-list">
+      {products.map((p) => <li><a href={`/${p.slug}`}>{p.name} <span aria-hidden="true">→</span></a></li>)}
+    </ul>
+    <a class="e-btn e-btn--primary" href="/">Go home <span class="e-arrow" aria-hidden="true">→</span></a>
+  </section>
+</Base>
+
+<style is:global>
+  .e-page-title { margin: var(--s-3) 0 var(--s-7); font-size: clamp(44px, 7vw, 88px); line-height: 0.94; font-weight: 600; letter-spacing: -0.04em; text-wrap: balance; }
+  .e-empty { color: var(--ink-2); font-size: 22px; }
+  .e-404-list { list-style: none; padding: 0; margin: var(--s-7) 0; display: grid; gap: var(--s-3); }
+  .e-404-list a { color: var(--ink); text-decoration: none; font-size: clamp(28px, 4vw, 40px); font-weight: 600; letter-spacing: -0.02em; }
+  .e-404-list a:hover { text-decoration: underline; text-underline-offset: 6px; }
+</style>

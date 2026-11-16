@@ -13,6 +13,7 @@ interface Props {
   path: string;
   ogImage?: string;
   jsonLd?: object[];
+  noindex?: boolean;
   current?: 'products' | 'blog' | 'founder';
 }
 const { current, ...seo } = Astro.props;
