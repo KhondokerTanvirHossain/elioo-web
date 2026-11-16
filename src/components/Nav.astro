@@ -1,0 +1,52 @@
+---
+import Wordmark from './Wordmark.astro';
+interface Props { current?: 'products' | 'blog' | 'founder'; hasPosts: boolean }
+const { current, hasPosts } = Astro.props;
+const links = [
+  { key: 'products', label: 'Products', href: '/#products' },
+  ...(hasPosts ? [{ key: 'blog', label: 'Blog', href: '/blog' }] : []),
+  { key: 'founder', label: 'Founder', href: '/#founder' },
+];
+---
+<header class="e-nav-wrap" data-nav>
+  <nav class="e-nav e-frame" aria-label="Main">
+    <Wordmark />
+    <ul class="e-nav__links">
+      {links.map((l) => <li><a href={l.href} aria-current={current === l.key ? 'page' : undefined}>{l.label}</a></li>)}
+      <li><a class="e-btn e-btn--primary e-btn--small e-nav__cta" href="/#contact">Say hi <span class="e-arrow" aria-hidden="true">↗</span></a></li>
+    </ul>
+    <button class="e-btn e-btn--ghost e-btn--small e-nav__menu" type="button" aria-haspopup="dialog" data-menu-open>Menu</button>
+  </nav>
+  <dialog class="e-menu" aria-label="Menu" data-menu>
+    <div class="e-menu__top e-frame">
+      <Wordmark />
+      <button class="e-btn e-btn--ghost e-btn--small" type="button" data-menu-close>Close</button>
+    </div>
+    <ul class="e-menu__links e-frame">
+      {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      <li><a href="/#contact">Say hi</a></li>
+    </ul>
+  </dialog>
+</header>
+
+<style is:global>
+  .e-nav-wrap { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; transition: background-color var(--d-base) var(--ease-out), border-color var(--d-base) var(--ease-out); border-bottom: 1px solid transparent; }
+  .e-nav-wrap[data-compact] { background: rgba(11, 11, 10, 0.78); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); border-bottom-color: var(--hairline); }
+  .e-nav-wrap[data-compact] .e-nav { padding-block: var(--s-3); }
+  .e-nav { padding-inline: 0; transition: padding var(--d-base) var(--ease-out); }
+  .e-nav__links .e-nav__cta, .e-nav__links .e-nav__cta:hover { color: var(--on-ink); }
+  .e-menu { width: 100%; max-width: none; height: 100%; max-height: none; margin: 0; padding: env(safe-area-inset-top, 0px) 0 0; border: 0; background: var(--scrim); color: var(--ink); }
+  .e-menu::backdrop { background: transparent; }
+  .e-menu__top { display: flex; justify-content: space-between; align-items: center; padding-block: var(--s-5); }
+  .e-menu__links { list-style: none; margin: var(--s-7) 0 0; display: grid; gap: var(--s-4); }
+  .e-menu__links a { color: var(--ink); text-decoration: none; font-size: clamp(36px, 9vw, 56px); line-height: 1.05; font-weight: 600; letter-spacing: -0.03em; }
+</style>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('[data-menu]');
+  const open = document.querySelector<HTMLButtonElement>('[data-menu-open]');
+  open?.addEventListener('click', () => dialog?.showModal());
+  dialog?.querySelector('[data-menu-close]')?.addEventListener('click', () => dialog.close());
+  dialog?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => dialog.close()));
+  dialog?.addEventListener('close', () => open?.focus());
+</script>

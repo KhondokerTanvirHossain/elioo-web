@@ -1,0 +1,13 @@
+
+# eliooo.org staging (elioo-web repo, deploy/edge-staging.caddy). Appended to ~/n8n/Caddyfile; see docs/RUNBOOK.md.
+elioo.13-205-14-249.sslip.io {
+	encode zstd gzip
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
+	}
+	reverse_proxy elioo-web:8080
+}

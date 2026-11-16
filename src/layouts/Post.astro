@@ -1,0 +1,40 @@
+---
+import Base from './Base.astro';
+import type { PostSummary } from '../lib/blog';
+
+interface Props { post: PostSummary; cover?: string; prev?: PostSummary; next?: PostSummary }
+const { post, cover, prev, next } = Astro.props;
+const iso = post.date.toISOString().slice(0, 10);
+const date = post.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const jsonLd = [{
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.title,
+  description: post.description,
+  datePublished: iso,
+  author: { '@type': 'Person', name: 'Tanvir Hossain', url: 'https://tanvir.eliooo.org' },
+  publisher: { '@type': 'Organization', name: 'elioo', url: 'https://eliooo.org' },
+}];
+---
+<Base title={`${post.title} · elioo`} description={post.description} path={`/blog/${post.slug}`} ogImage={cover} jsonLd={jsonLd} current="blog">
+  <article class="e-frame e-section">
+    <p class="e-eyebrow e-post-meta"><time datetime={iso}>{date}</time> · {post.minutes} min read{post.tags.length > 0 && ` · ${post.tags.join(', ')}`}</p>
+    <h1 class="e-post-title">{post.title}</h1>
+    {cover && <img class="e-post-cover" src={cover} alt="" />}
+    <div class="e-prose"><slot /></div>
+    <nav class="e-post-nav" aria-label="More posts">
+      {prev ? <a rel="prev" href={`/blog/${prev.slug}`}><span class="e-eyebrow">Newer</span>{prev.title}</a> : <span />}
+      {next ? <a rel="next" href={`/blog/${next.slug}`}><span class="e-eyebrow">Older</span>{next.title}</a> : <span />}
+    </nav>
+  </article>
+</Base>
+
+<style is:global>
+  .e-post-title { margin: var(--s-3) 0 var(--s-7); max-width: 20ch; font-size: clamp(36px, 5vw, 56px); line-height: 1.02; font-weight: 600; letter-spacing: -0.03em; text-wrap: balance; }
+  .e-post-cover { width: 100%; border-radius: var(--r-md); margin-bottom: var(--s-7); }
+  .e-post-nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5); margin-top: var(--s-9); padding-top: var(--s-6); border-top: 1px solid var(--hairline); }
+  .e-post-nav a { display: grid; gap: var(--s-2); color: var(--ink); text-decoration: none; font-size: 22px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em; }
+  .e-post-nav a[rel="next"] { text-align: right; }
+  .e-post-nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  @media (max-width: 560px) { .e-post-nav { grid-template-columns: 1fr; } .e-post-nav a[rel="next"] { text-align: left; } }
+</style>

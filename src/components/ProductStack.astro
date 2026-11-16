@@ -1,0 +1,16 @@
+---
+import ProductCard from './ProductCard.astro';
+import { products } from '../data/products';
+import { site } from '../data/site';
+---
+<section class="e-frame e-section" id="products" aria-labelledby="products-h">
+  <p class="e-eyebrow">Products</p>
+  <h2 id="products-h" class="e-section__title">{site.productsHeading.before} <span class="e-accent">{site.productsHeading.accent}</span></h2>
+  <div class="e-stack" data-stack>
+    {products.map((p, i) => <ProductCard product={p} index={i} />)}
+  </div>
+</section>
+
+<style is:global>
+  .e-section__title { margin: var(--s-3) 0 var(--s-7); font-size: clamp(36px, 5vw, 56px); line-height: 1; font-weight: 600; letter-spacing: -0.03em; text-wrap: balance; max-width: 18ch; }
+</style>

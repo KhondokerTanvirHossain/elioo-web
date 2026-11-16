@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import StatementReveal from '../components/StatementReveal.astro';
+import ProductStack from '../components/ProductStack.astro';
+import StatCounter from '../components/StatCounter.astro';
+import Founder from '../components/Founder.astro';
+import PostCard from '../components/PostCard.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import { site } from '../data/site';
+import { getPublishedPosts } from '../lib/posts';
+
+const latest = (await getPublishedPosts()).slice(0, 3);
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'Organization', name: 'elioo', url: 'https://eliooo.org', logo: 'https://eliooo.org/favicon.svg', founder: { '@type': 'Person', name: 'Tanvir Hossain' } },
+  { '@context': 'https://schema.org', '@type': 'Person', name: 'Tanvir Hossain', jobTitle: 'Founder', url: 'https://tanvir.eliooo.org', image: 'https://eliooo.org/images/tanvir.jpg', sameAs: site.founder.links.map((l) => l.href) },
+];
+---
+<Base title="elioo · Four products, one builder" description={site.description} path="/" jsonLd={jsonLd}>
+  <Hero />
+  <StatementReveal />
+  <ProductStack />
+  <StatCounter />
+  <Founder />
+  {latest.length > 0 && (
+    <section class="e-frame e-section" aria-labelledby="blog-h">
+      <p class="e-eyebrow">From the blog</p>
+      <h2 id="blog-h" class="e-section__title">Notes from the <span class="e-accent">workbench.</span></h2>
+      <div class="e-posts">{latest.map((p) => <PostCard post={p} />)}</div>
+    </section>
+  )}
+  <ContactCTA />
+</Base>

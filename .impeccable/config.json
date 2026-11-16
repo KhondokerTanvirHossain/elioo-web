@@ -1,0 +1,62 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "tiny-text",
+        "value": "*",
+        "files": [
+          ".superpowers/brainstorm/86930-1794850765/content/direction.html"
+        ],
+        "createdAt": "2026-11-16T17:40:04.686Z",
+        "reason": "Claude: throwaway brainstorm screen showing scaled-down page thumbnails, not shipped UI"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".superpowers/brainstorm/86930-1794850765/content/direction.html"
+        ],
+        "createdAt": "2026-11-16T17:40:04.712Z",
+        "reason": "Claude: throwaway brainstorm screen showing scaled-down page thumbnails, not shipped UI"
+      },
+      {
+        "rule": "tiny-text",
+        "value": "*",
+        "files": [
+          ".superpowers/brainstorm/86930-1794850765/content/booths.html"
+        ],
+        "createdAt": "2026-11-16T17:42:52.883Z",
+        "reason": "Claude: throwaway brainstorm screen showing scaled-down page thumbnails, not shipped UI"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".superpowers/brainstorm/86930-1794850765/content/booths.html"
+        ],
+        "createdAt": "2026-11-16T17:42:52.914Z",
+        "reason": "Claude: throwaway brainstorm screen showing scaled-down page thumbnails, not shipped UI"
+      },
+      {
+        "rule": "undersized-ui-text",
+        "value": "*",
+        "files": [
+          ".superpowers/brainstorm/86930-1794850765/content/booths.html"
+        ],
+        "createdAt": "2026-11-16T17:43:01.596Z",
+        "reason": "Claude: throwaway brainstorm screen showing scaled-down page thumbnails, not shipped UI"
+      },
+      {
+        "rule": "undersized-ui-text",
+        "value": "*",
+        "files": [
+          ".superpowers/brainstorm/86930-1794850765/content/direction.html"
+        ],
+        "createdAt": "2026-11-16T17:43:01.627Z",
+        "reason": "Claude: throwaway brainstorm screen showing scaled-down page thumbnails, not shipped UI"
+      }
+    ]
+  }
+}

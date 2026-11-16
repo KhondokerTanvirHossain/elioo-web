@@ -1,0 +1,8 @@
+---
+interface Props { size?: 'nav' | 'large' }
+const { size = 'nav' } = Astro.props;
+---
+<a class="e-wordmark" href="/" aria-label="elioo, home">
+  <img src="/favicon.svg" alt="" aria-hidden="true" width="28" height="28" style={size === 'large' ? 'width:44px;height:44px;border-radius:11px' : undefined} />
+  <span aria-hidden="true" style={size === 'large' ? 'font-size:40px' : undefined}>elioo</span>
+</a>

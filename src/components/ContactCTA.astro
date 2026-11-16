@@ -1,0 +1,16 @@
+---
+import { site } from '../data/site';
+const c = site.contact;
+---
+<section class="e-frame" id="contact" aria-labelledby="contact-h">
+  <div class="e-contact">
+    <p class="e-eyebrow">Contact</p>
+    <h2 id="contact-h" class="e-contact__title">{c.before} <span class="e-accent">{c.accent}</span></h2>
+    <p class="e-contact__line">{c.line}</p>
+    <a class="e-contact__mail" href={`mailto:${c.email}`}>{c.email}</a>
+  </div>
+</section>
+
+<style is:global>
+  .e-contact__line { margin: 0; color: var(--ink-2); font-size: 22px; line-height: 1.45; max-width: 36ch; }
+</style>

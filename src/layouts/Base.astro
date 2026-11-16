@@ -1,0 +1,43 @@
+---
+import Seo from '../components/Seo.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { getPublishedPosts } from '../lib/posts';
+import '../styles/tokens.css';
+import '../styles/components.css';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  ogImage?: string;
+  jsonLd?: object[];
+  noindex?: boolean;
+  current?: 'products' | 'blog' | 'founder';
+}
+const { current, ...seo } = Astro.props;
+const hasPosts = (await getPublishedPosts()).length > 0;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b0b0a" />
+    <Seo {...seo} />
+    {hasPosts && <link rel="alternate" type="application/rss+xml" title="elioo blog" href="/rss.xml" />}
+  </head>
+  <body>
+    <a class="e-skip" href="#main">Skip to content</a>
+    <Nav current={current} hasPosts={hasPosts} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer hasPosts={hasPosts} />
+    <script>
+      import { initMotion } from '../lib/motion';
+      initMotion(window, { scroll: document.querySelector('[data-stack]') !== null });
+    </script>
+  </body>
+</html>

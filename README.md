@@ -1,45 +1,25 @@
 # elioo-web
 
-Single-page site for [eliooo.org](https://eliooo.org). Plain HTML, CSS and JS. No build step.
+The studio site for [eliooo.org](https://eliooo.org): four products, one builder. Astro, built to static HTML.
+
+- Spec: `docs/superpowers/specs/2026-11-17-elioo-studio-redesign-design.md`
+- Plan: `docs/superpowers/plans/2026-11-17-elioo-studio-redesign.md`
+- Design system: https://claude.ai/artifact/AGc4BCs6q6iMqARWopegVu (tokens copied to `design/tokens.json`; `npm run tokens` regenerates `src/styles/tokens.css`)
 
 ## Run locally
 
-    npm run serve
-    open http://localhost:4173
+    npm install
+    npm run dev          # http://localhost:4321
 
 ## Check
 
-    npm run check   # html-validate + node tests
+    npm run check        # astro check, unit tests, build, dist checks
+    npm run test:e2e     # browser checks (after npm run build)
+
+## Write a blog post
+
+Add `src/content/blog/<slug>.md` with `title`, `description` and `date` in the frontmatter (`draft: true` keeps it out of production). Push; CI builds and deploys.
 
 ## Deploy
 
-Production deploys from `main` via Vercel. Preview deploys per branch.
-
-    npx vercel        # preview
-    npx vercel --prod # production
-
-## DNS (Hostinger)
-
-| Type  | Name | Value                 |
-|-------|------|-----------------------|
-| A     | @    | 76.76.21.21           |
-| CNAME | www  | cname.vercel-dns.com  |
-
-Existing subdomain records stay as they are.
-
-## Founder photo
-
-Drop a square portrait at `assets/tanvir.jpg`. Until it exists the page shows the orb.
-
-## Open Graph image
-
-`og.png` is a screenshot of `og.html` at 1200x630. Regenerate after changing the wordmark:
-
-    npm run serve
-    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars \
-      --window-size=1200,630 --virtual-time-budget=4000 --screenshot=og.png http://localhost:4173/og.html
-
-## Design
-
-Spec: `docs/superpowers/specs/2026-09-12-elioo-landing-design.md`
-Plan: `docs/superpowers/plans/2026-09-12-elioo-landing.md`
+Pushes to `main` build a container image and deploy it to the EC2 box (see `docs/RUNBOOK.md`).

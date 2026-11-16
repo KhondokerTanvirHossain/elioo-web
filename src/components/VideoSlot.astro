@@ -1,0 +1,31 @@
+---
+import type { ProductTheme } from '../data/products';
+import type { VideoFiles } from '../lib/video';
+
+interface Props {
+  label: string;
+  theme?: ProductTheme;
+  hero?: boolean;
+  video?: VideoFiles;
+  placeholder?: { src: string; widthPct: number };
+}
+const { label, theme, hero = false, video, placeholder } = Astro.props;
+const cls = ['e-video', hero && 'e-video--hero', theme && `e-video--${theme}`].filter(Boolean).join(' ');
+---
+<div class={cls}>
+  {video ? (
+    <>
+      <video data-autoplay controls preload="none" muted playsinline loop poster={video.poster} aria-label={label}>
+        {video.webm && <source src={video.webm} type="video/webm" />}
+        {video.mp4 && <source src={video.mp4} type="video/mp4" />}
+      </video>
+      <button class="e-btn e-btn--primary e-btn--small e-video__play" type="button" hidden aria-pressed="false">Play</button>
+    </>
+  ) : (
+    <div class="e-video__ph">
+      <slot>
+        {placeholder && <img src={placeholder.src} alt="" style={`width:${placeholder.widthPct}%`} />}
+      </slot>
+    </div>
+  )}
+</div>

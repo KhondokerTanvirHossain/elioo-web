@@ -1,12 +1,36 @@
 {
   "name": "elioo-web",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "test": "node --test",
-    "lint": "npx --yes html-validate@8 index.html",
-    "check": "npm run lint && npm test",
-    "serve": "python3 -m http.server 4173"
+    "dev": "astro dev",
+    "tokens": "node scripts/build-tokens.mjs",
+    "build": "npm run tokens && astro build",
+    "preview": "astro preview --port 4321",
+    "test": "vitest run tests/unit",
+    "test:dist": "vitest run tests/dist",
+    "test:e2e": "playwright test",
+    "check": "astro check && npm test && npm run build && npm run build:fixtures && npm run test:dist && node scripts/check-dist.mjs dist && node scripts/check-dist.mjs dist-fixtures && node scripts/check-video-budget.mjs",
+    "build:fixtures": "BLOG_DIR=./tests/fixtures/blog VIDEO_DIR=./tests/fixtures/video astro build --outDir dist-fixtures && mkdir -p dist-fixtures/video && cp tests/fixtures/video/* dist-fixtures/video/"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.5",
+    "@fontsource-variable/instrument-sans": "^5.3.0",
+    "@fontsource/instrument-serif": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "@fontsource/onest": "^5.3.1",
+    "astro": "^7.4.12",
+    "gsap": "^3.15.1",
+    "lenis": "^1.3.27"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@playwright/test": "^1",
+    "html-validate": "^11",
+    "linkedom": "^0.18",
+    "typescript": "^6",
+    "vitest": "^4"
   }
 }

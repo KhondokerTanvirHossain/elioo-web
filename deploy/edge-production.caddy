@@ -1,0 +1,22 @@
+
+# eliooo.org (elioo-web repo, deploy/edge-production.caddy). Replaces the staging block at cutover; see docs/RUNBOOK.md.
+eliooo.org {
+	encode zstd gzip
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
+	}
+	reverse_proxy elioo-web:8080
+}
+
+www.eliooo.org {
+	redir https://eliooo.org{uri} 308
+}
+
+# eliooo.org's staging address before launch: links already shared keep working.
+elioo.13-205-14-249.sslip.io {
+	redir https://eliooo.org{uri} 308
+}

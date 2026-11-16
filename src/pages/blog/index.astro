@@ -1,0 +1,20 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getPublishedPosts } from '../../lib/posts';
+const posts = await getPublishedPosts();
+---
+<Base title="Blog · elioo" description="Notes from building elioo's products: design, engineering and running them on one small box." path="/blog" current="blog">
+  <section class="e-frame e-section">
+    <p class="e-eyebrow">Blog</p>
+    <h1 class="e-page-title">Notes from the <span class="e-accent">workbench.</span></h1>
+    {posts.length > 0
+      ? <div class="e-posts">{posts.map((p) => <PostCard post={p} headingLevel="h2" />)}</div>
+      : <p class="e-empty">No posts yet. The first one is on its way.</p>}
+  </section>
+</Base>
+
+<style is:global>
+  .e-page-title { margin: var(--s-3) 0 var(--s-7); font-size: clamp(44px, 7vw, 88px); line-height: 0.94; font-weight: 600; letter-spacing: -0.04em; text-wrap: balance; }
+  .e-empty { color: var(--ink-2); font-size: 22px; }
+</style>

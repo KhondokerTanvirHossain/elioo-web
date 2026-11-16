@@ -1,0 +1,5 @@
+---
+interface Props { live: boolean }
+const { live } = Astro.props;
+---
+{live ? <span class="e-status">Live</span> : <span class="e-status e-status--soon">Launching soon</span>}

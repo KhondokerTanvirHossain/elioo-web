@@ -1,0 +1,70 @@
+---
+import Base from '../layouts/Base.astro';
+import ProductHeader from '../components/ProductHeader.astro';
+import PostCard from '../components/PostCard.astro';
+import { products, nextProduct, tryUrl, type Product } from '../data/products';
+import { getPublishedPosts } from '../lib/posts';
+import { relatedTo } from '../lib/blog';
+
+export function getStaticPaths() {
+  return products.map((p) => ({ params: { product: p.slug }, props: { product: p } }));
+}
+interface Props { product: Product }
+const { product: p } = Astro.props;
+const next = nextProduct(p.slug);
+const url = tryUrl(p);
+const related = relatedTo(p.slug, await getPublishedPosts());
+---
+<Base title={`${p.name} · elioo`} description={`${p.name}: ${p.pitch} ${p.description}`} path={`/${p.slug}`}>
+  <div class="e-frame">
+    <ProductHeader product={p} />
+  </div>
+  <article class="e-frame e-section e-product-body">
+    <div class="e-prose">
+      <h2>What it does</h2>
+      <ul>{p.what.map((w) => <li>{w}</li>)}</ul>
+
+      <h2>How I built it</h2>
+      <dl class="e-stack-list">
+        {p.stack.map((s) => (<><dt>{s.label}</dt><dd>{s.value}</dd></>))}
+      </dl>
+      <p>{p.architecture}</p>
+      {p.hardProblems.map((h) => (<><h3>{h.title}</h3><p>{h.body}</p></>))}
+
+      {p.screens.length > 0 && (
+        <>
+          <h2>Screens</h2>
+          {p.screens.map((s) => <img src={s.src} alt={s.alt} loading="lazy" />)}
+        </>
+      )}
+
+      <h2>Status and links</h2>
+      {url
+        ? <p>{p.name} is live at <a href={url} target="_blank" rel="noopener">{url.replace(/^https:\/\/|\/$/g, '')}</a>.</p>
+        : <p>{p.name} is launching soon.</p>}
+    </div>
+
+    {related.length > 0 && (
+      <section class="e-related" aria-labelledby="related-h">
+        <p class="e-eyebrow" id="related-h">From the blog</p>
+        <div class="e-posts">{related.map((post) => <PostCard post={post} />)}</div>
+      </section>
+    )}
+
+    <a class="e-next" href={`/${next.slug}`}>
+      <span class="e-eyebrow">Next</span>
+      <span class="e-next__name">{next.name} <span aria-hidden="true">→</span></span>
+    </a>
+  </article>
+</Base>
+
+<style is:global>
+  .e-stack-list { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: var(--s-3) var(--s-5); margin: 0; }
+  .e-stack-list dt { color: var(--ink); font-weight: 600; }
+  .e-stack-list dd { margin: 0; }
+  @media (max-width: 560px) { .e-stack-list { grid-template-columns: 1fr; gap: var(--s-1); } .e-stack-list dd { margin-bottom: var(--s-3); } }
+  .e-related { margin-top: var(--s-9); display: grid; gap: var(--s-4); }
+  .e-next { display: grid; gap: var(--s-2); margin-top: var(--s-9); padding-top: var(--s-6); border-top: 1px solid var(--hairline); color: var(--ink); text-decoration: none; }
+  .e-next__name { font-size: clamp(36px, 5vw, 56px); line-height: 1; font-weight: 600; letter-spacing: -0.03em; }
+  .e-next:hover .e-next__name { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 8px; }
+</style>

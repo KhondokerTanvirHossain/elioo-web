@@ -1,0 +1,13 @@
+---
+import { site } from '../data/site';
+---
+<section class="e-frame e-section" aria-label="In numbers">
+  <div class="e-stats">
+    {site.stats.map((s) => (
+      <div>
+        <span class="e-stat__n" data-count={s.n}>{s.n}</span>
+        <span class="e-stat__l">{s.label}</span>
+      </div>
+    ))}
+  </div>
+</section>
