@@ -2,8 +2,8 @@ node_modules/
 .vercel/
 .DS_Store
 .superpowers/
-dist/
-dist-fixtures/
+/dist/
+/dist-fixtures/
 .astro/
 test-results/
 playwright-report/
