@@ -1,0 +1,17 @@
+---
+import { site } from '../data/site';
+const f = site.founder;
+---
+<section class="e-frame e-section" id="founder" aria-labelledby="founder-h">
+  <div class="e-founder">
+    <img class="e-founder__photo" src={f.photo} alt={`${f.first} ${f.last}`} width="220" height="220" loading="lazy" />
+    <div>
+      <p class="e-eyebrow">Founder</p>
+      <h2 id="founder-h" class="e-founder__name">{f.first} <span class="e-accent">{f.last}</span></h2>
+      <p class="e-founder__bio">{f.bio}</p>
+      <div class="e-founder__links">
+        {f.links.map((l) => <a class="e-link" href={l.href} target="_blank" rel="me noopener">{l.label} <span aria-hidden="true">↗</span></a>)}
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,13 @@
+---
+import type { PostSummary } from '../lib/blog';
+interface Props { post: PostSummary; headingLevel?: 'h2' | 'h3' }
+const { post, headingLevel = 'h3' } = Astro.props;
+const H = headingLevel;
+const date = post.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+---
+<a class="e-post" href={`/blog/${post.slug}`}>
+  <span class="e-post__meta"><time datetime={post.date.toISOString().slice(0, 10)}>{date}</time> · {post.minutes} min read</span>
+  <H class="e-post__title">{post.title}</H>
+  <p class="e-post__desc">{post.description}</p>
+  <span class="e-post__more">Read the post <span aria-hidden="true">→</span></span>
+</a>

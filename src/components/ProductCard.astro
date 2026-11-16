@@ -1,0 +1,38 @@
+---
+import type { Product } from '../data/products';
+import { tryUrl } from '../data/products';
+import StatusLabel from './StatusLabel.astro';
+import VideoSlot from './VideoSlot.astro';
+import { findVideo } from '../lib/video';
+
+interface Props { product: Product; index: number }
+const { product: p, index } = Astro.props;
+const url = tryUrl(p);
+---
+<article class={`e-card e-card--${p.theme}`} style={`--i:${index}`} id={`product-${p.slug}`} aria-labelledby={`n-${p.slug}`}>
+  <div class="e-card__copy">
+    <div class="e-card__top">
+      <p class="e-card__cat">{p.num} · {p.category}</p>
+      <StatusLabel live={p.live} />
+    </div>
+    <h3 id={`n-${p.slug}`} class="sr-only">{p.name}</h3>
+    {p.logo.kind === 'image'
+      ? <img class="e-card__logo" src={p.logo.src} alt="" aria-hidden="true" />
+      : <span class="e-wordmark-drugs e-card__logo" aria-hidden="true">IntelliDrugs<b>.</b></span>}
+    <p class="e-card__pitch">{p.pitch}</p>
+    <p class="e-card__desc">{p.description}</p>
+    <div class="e-card__actions">
+      {url && <a class="e-btn e-btn--try" href={url} target="_blank" rel="noopener">Try it <span class="e-arrow" aria-hidden="true">↗</span><span class="sr-only"> {p.name}</span></a>}
+      <a class="e-btn e-btn--more" href={`/${p.slug}`}>Read more <span class="e-arrow" aria-hidden="true">→</span><span class="sr-only"> about {p.name}</span></a>
+    </div>
+  </div>
+  <div class="e-card__media">
+    <VideoSlot theme={p.theme} label={`A short film of ${p.name}`} video={p.video ?? findVideo(p.slug)} placeholder={p.placeholder} />
+  </div>
+  <p class="e-card__num" aria-hidden="true">{p.num}</p>
+</article>
+
+<style is:global>
+  .e-card__logo.e-wordmark-drugs { height: auto; margin-top: var(--s-6); }
+  .e-video--drugs .e-video__ph img { border-radius: 14%; }
+</style>

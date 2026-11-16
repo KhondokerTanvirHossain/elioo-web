@@ -1,0 +1,32 @@
+---
+import VideoSlot from './VideoSlot.astro';
+import { site } from '../data/site';
+import { products } from '../data/products';
+import { findVideo } from '../lib/video';
+const h = site.hero;
+---
+<section class="e-frame">
+  <div class="e-hero">
+    <h1 class="e-hero__title">{h.before}<br />{h.lineTwo} <span class="e-accent">{h.accent}</span></h1>
+    <div class="e-hero__row">
+      <div>
+        <p class="e-hero__lede">{h.lede}</p>
+        <div class="e-hero__actions">
+          <a class="e-btn e-btn--primary" href="#products">See the products <span class="e-arrow" aria-hidden="true">→</span></a>
+          <a class="e-btn e-btn--ghost" href="#contact">Say hi <span class="e-arrow" aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <VideoSlot hero label="A short film about elioo's four products" video={findVideo('hero')}>
+        <div class="e-hero__marks">
+          {products.map((p) => <img src={p.placeholder.src} alt="" />)}
+        </div>
+      </VideoSlot>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .e-hero__marks { display: flex; gap: 7%; align-items: center; justify-content: center; width: 100%; }
+  .e-hero__marks img { width: 11%; height: auto; }
+  .e-hero__marks img[src$="intellidrugs-icon.svg"] { border-radius: 12%; }
+</style>
