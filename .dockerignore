@@ -1,0 +1,9 @@
+node_modules
+dist
+dist-fixtures
+.astro
+.git
+.superpowers
+.impeccable
+test-results
+playwright-report
