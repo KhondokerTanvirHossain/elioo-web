@@ -12,3 +12,9 @@ test('the runbook never replaces the bind-mounted Caddyfile and checks the conta
   expect(runbook).not.toMatch(/sed -i/);
   expect(runbook).toContain('docker exec n8n-caddy-1 cat /etc/caddy/Caddyfile | diff - ~/n8n/Caddyfile');
 });
+
+test('the smoke test never pipes curl into grep -q (SIGPIPE fails it under pipefail)', () => {
+  const smoke = readFileSync('scripts/smoke.sh', 'utf8');
+  expect(smoke).not.toMatch(/curl[^\n]*\|\s*grep -q/);
+  expect(smoke).toMatch(/--max-time/);
+});

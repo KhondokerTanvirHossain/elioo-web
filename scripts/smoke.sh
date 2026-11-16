@@ -6,9 +6,10 @@ B=${B%/}
 fail=0
 
 retry() { for _ in $(seq 1 10); do "$@" && return 0; sleep 5; done; return 1; }
-status_is() { [ "$(curl -s -o /dev/null -w '%{http_code}' "$1")" = "$2" ]; }
-body_has() { curl -fs "$1" | grep -q "$2"; }
-redirects() { local out; out=$(curl -s -o /dev/null -w '%{http_code} %{redirect_url}' "$1"); [ "$out" = "308 $2" ]; }
+C="curl -s --max-time 15"
+status_is() { [ "$($C -o /dev/null -w '%{http_code}' "$1")" = "$2" ]; }
+body_has() { local body; body=$($C -f "$1") || return 1; [[ "$body" == *"$2"* ]]; }
+redirects() { local out; out=$($C -o /dev/null -w '%{http_code} %{redirect_url}' "$1"); [ "$out" = "308 $2" ]; }
 check() { local name=$1; shift; if retry "$@"; then echo "ok   $name"; else echo "FAIL $name"; fail=1; fi; }
 
 check "home is up" body_has "$B/" "Four products."
