@@ -1,0 +1,13 @@
+---
+import type { ProductTheme } from '../../data/products';
+import MediooDemo from './MediooDemo.astro';
+import BoloDemo from './BoloDemo.astro';
+import FiniooDemo from './FiniooDemo.astro';
+import DrugsDemo from './DrugsDemo.astro';
+interface Props { theme: ProductTheme }
+const { theme } = Astro.props;
+---
+{theme === 'medioo' && <MediooDemo />}
+{theme === 'bolo' && <BoloDemo />}
+{theme === 'finioo' && <FiniooDemo />}
+{theme === 'drugs' && <DrugsDemo />}

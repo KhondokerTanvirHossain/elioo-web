@@ -4,7 +4,7 @@ const d = page('/');
 
 test('one h1 with the accent word', () => {
   expect(d.querySelectorAll('h1').length).toBe(1);
-  expect(d.querySelector('h1 .e-accent')?.textContent).toBe('builder.');
+  expect(d.querySelector('h1 .e-accent')?.textContent).toBe('worries in life.');
 });
 test('four product cards in order with their themes', () => {
   expect([...d.querySelectorAll('.e-stack > .e-card')].map((c) => c.className)).toEqual([
@@ -29,7 +29,7 @@ test('every card links to its product page', () => {
   ]);
 });
 test('statement is plain readable text in the HTML', () => {
-  expect(d.querySelector('.e-statement')?.textContent).toContain('I build AI products for Bangladesh');
+  expect(d.querySelector('.e-statement')?.textContent).toContain('Engineering is what makes it safe to rely on');
 });
 test('stats render final values server-side', () => {
   expect([...d.querySelectorAll('.e-stat__n')].map((n) => n.textContent)).toEqual(['4', '3', '1']);

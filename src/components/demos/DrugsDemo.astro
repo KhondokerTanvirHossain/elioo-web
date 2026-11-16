@@ -1,0 +1,22 @@
+---
+// IntelliDrugs' interaction checker with the live product's real output for Napa + G Warfarin (checked 2026-11-17).
+---
+<div class="e-demo e-demo--drugs" data-demo="drugs">
+  <p class="sr-only">IntelliDrugs checks Napa (acetaminophen) with G Warfarin and shows a Moderate interaction from DDInter 2.0, with the advice to monitor INR more closely.</p>
+  <div class="e-dd" aria-hidden="true">
+    <div class="e-dd__field">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>
+      <span class="e-dd__q1" data-seq data-type data-delay="500">Napa</span><span class="e-dd__q2" data-seq data-type data-delay="900">Warfarin</span>
+    </div>
+    <div class="e-dd__meds">
+      <div class="e-dd__med" data-seq data-delay="350"><b>Napa</b><span>Acetaminophen 500 mg tablet</span></div>
+      <div class="e-dd__med" data-seq data-delay="350"><b>G Warfarin</b><span>Warfarin 5 mg tablet</span></div>
+    </div>
+    <div class="e-dd__result" data-seq data-delay="600">
+      <div class="e-dd__head"><span class="e-dd__sev">Moderate</span><b>Napa + G Warfarin</b></div>
+      <div class="e-dd__meta">From DDInter 2.0 · Pair not yet reviewed by a senior pharmacist</div>
+      <div class="e-dd__action">Acetaminophen + Warfarin. Action: synergy</div>
+      <div class="e-dd__text">Due to the lack of safer alternatives, acetaminophen is considered the analgesic and antipyretic drug of choice for patients receiving warfarin and similar anticoagulants. However, caution is recommended during concomitant therapy…</div>
+    </div>
+  </div>
+</div>

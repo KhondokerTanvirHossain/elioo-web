@@ -12,7 +12,7 @@ body_has() { local body; body=$($C -f "$1") || return 1; [[ "$body" == *"$2"* ]]
 redirects() { local out; out=$($C -o /dev/null -w '%{http_code} %{redirect_url}' "$1"); [ "$out" = "308 $2" ]; }
 check() { local name=$1; shift; if retry "$@"; then echo "ok   $name"; else echo "FAIL $name"; fail=1; fi; }
 
-check "home is up" body_has "$B/" "Four products."
+check "home is up" body_has "$B/" 'id="products"'
 check "/medioo 200" status_is "$B/medioo" 200
 check "/blog 200" status_is "$B/blog" 200
 check "/healthz 200" status_is "$B/healthz" 200

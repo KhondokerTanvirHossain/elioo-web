@@ -1,3 +1,4 @@
+import { initDemos } from './demos';
 // Scroll motion for eliooo.org. Every page reads completely without this script;
 // it only adds smooth scroll, the stack scale/dim, the statement reveal, count-ups and video play/pause.
 
@@ -152,9 +153,10 @@ export function initMotion(win: Window = window, opts: { scroll?: boolean } = {}
   const reduced = win.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const stopNav = compactNav(win);
   const stopVideos = setupVideos(doc, !reduced);
+  const stopDemos = initDemos(doc, reduced);
   let stopScroll = () => {};
   if (!reduced && opts.scroll) {
     void initScroll(win).then((stop) => { stopScroll = stop; });
   }
-  return { reduced, teardown() { stopNav(); stopVideos(); stopScroll(); } };
+  return { reduced, teardown() { stopNav(); stopVideos(); stopDemos(); stopScroll(); } };
 }

@@ -1,0 +1,24 @@
+---
+// A Bolo conversation at dusk: three-step sky, two twinkling stars, the sun lowering, the Buddy's line, then "Your turn".
+const stars = Array.from({ length: 26 }, (_, i) => {
+  const r = (n: number) => ((Math.sin(i * 9301 + n * 49297) + 1) / 2);
+  return { x: (r(1) * 100).toFixed(1), y: (Math.pow(r(2), 1.8) * 58).toFixed(1), o: (0.5 + r(3) * 0.35).toFixed(2) };
+});
+---
+<div class="e-demo e-demo--bolo" data-demo="bolo">
+  <p class="sr-only">Example: in Bolo's dusk scene, the speaking buddy asks "Oh nice, what was the bug doing?" and then it is your turn to answer out loud.</p>
+  <div class="e-db" aria-hidden="true">
+    {stars.map((s) => <i class="e-db__dot" style={`left:${s.x}%;top:${s.y}%;opacity:${s.o}`} />)}
+    <span class="e-db__star" style="left:18%;top:14%"></span><span class="e-db__star e-db__star--b" style="left:78%;top:24%"></span>
+    <div class="e-db__sun"></div>
+    <div class="e-db__hill e-db__hill--far"></div><div class="e-db__hill e-db__hill--near"></div>
+    <div class="e-db__plate" data-seq data-delay="700">
+      <div class="e-db__who"><i></i>Your Buddy<span class="e-db__wave"><b></b><b></b><b></b><b></b><b></b><b></b></span></div>
+      <div class="e-db__line" data-seq data-type data-speaking data-delay="300">Oh nice, what was the bug doing?</div>
+    </div>
+    <div class="e-db__mic" data-seq data-delay="700">
+      <span class="e-db__turn">Your turn</span>
+      <span class="e-db__disc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>
+    </div>
+  </div>
+</div>

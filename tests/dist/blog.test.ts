@@ -48,3 +48,9 @@ test('a product video has native controls in the HTML (no-JS) and a hidden enhan
   expect(v.querySelector('source[src="/video/medioo.mp4"]')).not.toBeNull();
   expect(d.querySelector('#product-medioo .e-video__play')).not.toBeNull();
 });
+
+test('a video file replaces the live demo for that product', () => {
+  const d = page('/', 'dist-fixtures');
+  expect(d.querySelector('#product-medioo [data-demo]')).toBeNull();
+  expect(d.querySelector('#product-bolo [data-demo="bolo"]')).not.toBeNull();
+});

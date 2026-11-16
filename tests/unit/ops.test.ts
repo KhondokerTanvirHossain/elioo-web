@@ -18,3 +18,9 @@ test('the smoke test never pipes curl into grep -q (SIGPIPE fails it under pipef
   expect(smoke).not.toMatch(/curl[^\n]*\|\s*grep -q/);
   expect(smoke).toMatch(/--max-time/);
 });
+
+test('the smoke test checks markup, not marketing copy that changes', () => {
+  const smoke = readFileSync('scripts/smoke.sh', 'utf8');
+  expect(smoke).not.toContain('Four products.');
+  expect(smoke).toContain('id="products"');
+});

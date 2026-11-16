@@ -2,16 +2,69 @@
 import { site } from '../data/site';
 const f = site.founder;
 ---
-<section class="e-frame e-section" id="founder" aria-labelledby="founder-h">
-  <div class="e-founder">
-    <img class="e-founder__photo" src={f.photo} alt={`${f.first} ${f.last}`} width="220" height="220" loading="lazy" />
-    <div>
-      <p class="e-eyebrow">Founder</p>
-      <h2 id="founder-h" class="e-founder__name">{f.first} <span class="e-accent">{f.last}</span></h2>
-      <p class="e-founder__bio">{f.bio}</p>
-      <div class="e-founder__links">
-        {f.links.map((l) => <a class="e-link" href={l.href} target="_blank" rel="me noopener">{l.label} <span aria-hidden="true">↗</span></a>)}
-      </div>
+<section class="e-frame e-section e-founder2" id="founder" aria-labelledby="founder-h">
+  <div class="e-founder2__media">
+    <img class="e-founder__portrait" src={f.portrait.src} alt={`${f.first} ${f.last}`} width={f.portrait.width} height={f.portrait.height} loading="lazy" decoding="async" />
+  </div>
+  <div class="e-founder2__body">
+    <p class="e-eyebrow">The builder</p>
+    <h2 id="founder-h" class="e-founder2__name">{f.first} <span class="e-accent">{f.last}</span></h2>
+    <p class="e-founder__role">{f.role}</p>
+    <p class="e-founder2__bio">{f.bio}</p>
+
+    <ul class="e-founder2__facts">
+      {f.facts.map((x) => <li class="e-founder__fact"><b>{x.n}</b><span>{x.label}</span></li>)}
+    </ul>
+
+    <div class="e-founder2__work">
+      <p class="e-eyebrow">Where I've built</p>
+      <ul class="e-founder__work">
+        {f.work.map((w) => (
+          <li>
+            <a href={w.href} target="_blank" rel="noopener">
+              <span class="e-founder__work-name">{w.name} <span aria-hidden="true">↗</span></span>
+              <span class="e-founder__work-what">{w.what}</span>
+              <span class="e-founder__work-years">{w.years}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="e-founder2__actions">
+      <a class="e-btn e-btn--primary" href={f.portfolio} target="_blank" rel="me noopener">See my work <span class="e-arrow" aria-hidden="true">↗</span></a>
+      {f.links.filter((l) => l.label !== 'Portfolio').map((l) => <a class="e-btn e-btn--ghost" href={l.href} target="_blank" rel="me noopener">{l.label} <span class="e-arrow" aria-hidden="true">↗</span></a>)}
     </div>
   </div>
 </section>
+
+<style is:global>
+  .e-founder2 { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--s-8); align-items: start; border-top: 1px solid var(--hairline); }
+  .e-founder2__media { position: sticky; top: calc(var(--s-6) + 72px); }
+  .e-founder__portrait { display: block; width: 100%; height: auto; aspect-ratio: 1086 / 1448; object-fit: cover; border-radius: var(--r-lg); filter: grayscale(1) contrast(1.04); background: var(--raised); }
+  .e-founder2__body { display: grid; gap: var(--s-5); min-width: 0; padding-top: var(--s-4); }
+  .e-founder2__name { margin: 0; font-size: clamp(56px, 8vw, 112px); line-height: 0.9; font-weight: 600; letter-spacing: -0.05em; font-stretch: 88%; }
+  .e-founder__role { margin: 0; font-size: 24px; line-height: 1.4; letter-spacing: -0.01em; color: var(--ink); max-width: 34ch; text-wrap: pretty; }
+  .e-founder2__bio { margin: 0; color: var(--ink-2); max-width: 56ch; }
+  .e-founder2__facts { list-style: none; margin: var(--s-4) 0 0; padding: var(--s-5) 0 0; border-top: 1px solid var(--hairline); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-5); }
+  .e-founder__fact { display: grid; gap: var(--s-2); }
+  .e-founder__fact b { font-size: clamp(40px, 4.5vw, 56px); line-height: 1; font-weight: 600; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+  .e-founder__fact span { font-size: 15px; line-height: 1.45; color: var(--ink-2); max-width: 22ch; }
+  .e-founder2__work { display: grid; gap: var(--s-3); margin-top: var(--s-5); }
+  .e-founder__work { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--hairline); }
+  .e-founder__work li { border-bottom: 1px solid var(--hairline); }
+  .e-founder__work a { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.6fr) auto; gap: var(--s-2) var(--s-5); align-items: baseline; padding: var(--s-4) 0; color: var(--ink); text-decoration: none; transition: padding var(--d-base) var(--ease-out), color var(--d-fast) var(--ease-out); }
+  .e-founder__work a:hover { padding-left: var(--s-3); }
+  .e-founder__work-name { font-size: 22px; font-weight: 600; letter-spacing: -0.015em; }
+  .e-founder__work-what { color: var(--ink-2); font-size: 16px; line-height: 1.45; }
+  .e-founder__work-years { color: var(--ink-3); font-size: 14px; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .e-founder2__actions { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-5); }
+  @media (max-width: 960px) {
+    .e-founder2 { grid-template-columns: 1fr; gap: var(--s-6); }
+    .e-founder2__media { position: static; max-width: 520px; }
+    .e-founder__work a { grid-template-columns: 1fr auto; }
+    .e-founder__work-what { grid-column: 1 / -1; grid-row: 2; }
+  }
+  @media (max-width: 560px) { .e-founder2__facts { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) { .e-founder__work a:hover { padding-left: 0; } }
+</style>

@@ -14,3 +14,12 @@ test('copy never claims every product shipped while one is not live', async () =
   const { products } = await import('../../src/data/products');
   if (products.some((p) => !p.live)) expect(JSON.stringify(site)).not.toMatch(/\bshipped\b/i);
 });
+
+test('the opening speaks about friendly bots and worries, not a country or "AI"', async () => {
+  vi.resetModules();
+  const { site } = await import('../../src/data/site');
+  const opening = [site.hero.before, site.hero.accent, site.hero.lede, site.statement].join(' ');
+  expect(opening).toMatch(/friendly bots?/i);
+  expect(opening).not.toMatch(/Bangladesh/);
+  expect(opening).not.toMatch(/\bAI\b/);
+});

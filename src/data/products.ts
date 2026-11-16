@@ -12,6 +12,7 @@ export interface Product {
   theme: ProductTheme;
   url: string;
   live: boolean;
+  worry: string;
   pitch: string;
   description: string;
   logo: { kind: 'image'; src: string; alt: string } | { kind: 'drugs-wordmark' };
@@ -34,6 +35,7 @@ export const products: Product[] = [
     theme: 'medioo',
     url: 'https://medioo.eliooo.org/',
     live: true,
+    worry: "A parent's lab report arrives full of medical shorthand, and the family can't tell what is urgent.",
     pitch: "Your family's medical papers, explained in plain Bangla.",
     description:
       'Snap a lab report or prescription. Code checks the numbers and urgency; the model only words what code has already checked.',
@@ -78,6 +80,7 @@ export const products: Product[] = [
     theme: 'bolo',
     url: 'https://bolo.eliooo.org/',
     live: true,
+    worry: 'Many people learned English from books but freeze when they have to speak it, in interviews and at work.',
     pitch: 'A speaking buddy for Bangla speakers who freeze in English.',
     description:
       'Voice-first practice with a calm buddy at dusk, then a coach who replays your own voice and fixes one thing at a time.',
@@ -118,6 +121,7 @@ export const products: Product[] = [
     theme: 'finioo',
     url: 'https://finioo.eliooo.org/',
     live: false,
+    worry: 'Founders need a financial model that investors and banks will trust, and building one usually means hiring an expert.',
     pitch: "An AI co-pilot that builds and runs a founder's business model.",
     description:
       'Talk to it, edit the numbers directly, or drive it from your own Claude over MCP. Every figure explains where it came from.',
@@ -157,6 +161,7 @@ export const products: Product[] = [
     theme: 'drugs',
     url: 'https://drugdb.eliooo.org/',
     live: true,
+    worry: 'The same medicine is sold under many brand names, and few people can check which ones are safe to take together.',
     pitch: "Bangladesh's drug database, honest about what it doesn't know.",
     description:
       'Every registered medicine, cross-checked against its source, with a pharmacist review desk. Missing interaction data is shown as missing, never as safe.',
