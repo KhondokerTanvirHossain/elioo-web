@@ -33,5 +33,9 @@ const hasPosts = (await getPublishedPosts()).length > 0;
       <slot />
     </main>
     <Footer hasPosts={hasPosts} />
+    <script>
+      import { initMotion } from '../lib/motion';
+      initMotion();
+    </script>
   </body>
 </html>
