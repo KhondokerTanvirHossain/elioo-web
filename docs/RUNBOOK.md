@@ -34,7 +34,9 @@ Never restart, recreate or `docker compose up` the Caddy container: every site o
     docker exec n8n-caddy-1 caddy reload --config /etc/caddy/Caddyfile --adapter caddyfile
     for h in medioo bolo drugdb; do curl -s -o /dev/null -w "$h %{http_code}\n" https://$h.eliooo.org/; done
 
-The blocks for this site are `deploy/edge-staging.caddy` (before launch) and `deploy/edge-production.caddy` (after the DNS change).
+The live blocks for this site are in `deploy/edge-production.caddy` (eliooo.org, the www redirect, and the old staging address redirecting to eliooo.org). `deploy/edge-staging.caddy` is kept for reference only.
+
+`tanvir.eliooo.org` currently has a temporary block in the same Caddyfile that proxies to the portfolio on Vercel (`tanvir-web.vercel.app`). Do not delete the tanvir-web Vercel project until the portfolio moves to this box.
 
 ## Videos
 
