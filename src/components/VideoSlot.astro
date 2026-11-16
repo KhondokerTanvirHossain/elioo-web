@@ -15,11 +15,11 @@ const cls = ['e-video', hero && 'e-video--hero', theme && `e-video--${theme}`].f
 <div class={cls}>
   {video ? (
     <>
-      <video data-autoplay preload="none" muted playsinline loop poster={video.poster} aria-label={label}>
+      <video data-autoplay controls preload="none" muted playsinline loop poster={video.poster} aria-label={label}>
         {video.webm && <source src={video.webm} type="video/webm" />}
         {video.mp4 && <source src={video.mp4} type="video/mp4" />}
       </video>
-      <button class="e-btn e-btn--primary e-btn--small e-video__play" type="button" hidden>Play <span aria-hidden="true">▶</span></button>
+      <button class="e-btn e-btn--primary e-btn--small e-video__play" type="button" hidden aria-pressed="false">Play</button>
     </>
   ) : (
     <div class="e-video__ph">

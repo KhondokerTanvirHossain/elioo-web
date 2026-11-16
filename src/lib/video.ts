@@ -4,7 +4,7 @@ import { join } from 'node:path';
 
 export interface VideoFiles { webm?: string; mp4?: string; poster?: string }
 
-export function findVideo(name: string, root = join(process.cwd(), 'public', 'video')): VideoFiles | undefined {
+export function findVideo(name: string, root = process.env.VIDEO_DIR ?? join(process.cwd(), 'public', 'video')): VideoFiles | undefined {
   const has = (ext: string) => existsSync(join(root, `${name}.${ext}`));
   const v: VideoFiles = {
     webm: has('webm') ? `/video/${name}.webm` : undefined,

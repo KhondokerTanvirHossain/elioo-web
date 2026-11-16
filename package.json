@@ -12,7 +12,7 @@
     "test:dist": "vitest run tests/dist",
     "test:e2e": "playwright test",
     "check": "astro check && npm test && npm run build && npm run build:fixtures && npm run test:dist && node scripts/check-dist.mjs dist && node scripts/check-dist.mjs dist-fixtures && node scripts/check-video-budget.mjs",
-    "build:fixtures": "BLOG_DIR=./tests/fixtures/blog astro build --outDir dist-fixtures"
+    "build:fixtures": "BLOG_DIR=./tests/fixtures/blog VIDEO_DIR=./tests/fixtures/video astro build --outDir dist-fixtures && mkdir -p dist-fixtures/video && cp tests/fixtures/video/* dist-fixtures/video/"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",

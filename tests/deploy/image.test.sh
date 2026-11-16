@@ -26,6 +26,7 @@ check "/tanvir is 308" "$(code /tanvir)" 308
 check "/tanvir location" "$(header /tanvir Location)" "https://tanvir.eliooo.org"
 ASSET=$(curl -s "$B/" | grep -o '/_astro/[^"]*\.css' | head -1)
 check "hashed assets cached for a year" "$(header "$ASSET" Cache-Control)" "public, max-age=31536000, immutable"
+check "a missing hashed asset is not cached" "$(header /_astro/nope.js Cache-Control)" "no-store"
 check "html cached briefly" "$(header / Cache-Control)" "public, max-age=300"
 ENC=$(header / Content-Encoding "-H Accept-Encoding:gzip")
 [ "$ENC" = "gzip" ] && echo "ok   gzip when asked" || { echo "FAIL gzip: got [$ENC]"; fail=1; }

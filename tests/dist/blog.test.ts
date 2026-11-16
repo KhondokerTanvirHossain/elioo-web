@@ -40,3 +40,11 @@ describe('with fixture posts (dist-fixtures)', () => {
     expect(page('/blog', R).querySelector('link[type="application/rss+xml"]')).not.toBeNull();
   });
 });
+
+test('a product video has native controls in the HTML (no-JS) and a hidden enhance button', () => {
+  const d = page('/', 'dist-fixtures');
+  const v = d.querySelector('#product-medioo video')!;
+  expect(v.hasAttribute('controls')).toBe(true);
+  expect(v.querySelector('source[src="/video/medioo.mp4"]')).not.toBeNull();
+  expect(d.querySelector('#product-medioo .e-video__play')).not.toBeNull();
+});

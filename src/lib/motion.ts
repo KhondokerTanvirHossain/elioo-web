@@ -1,8 +1,5 @@
 // Scroll motion for eliooo.org. Every page reads completely without this script;
 // it only adds smooth scroll, the stack scale/dim, the statement reveal, count-ups and video play/pause.
-import Lenis from 'lenis';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export function litWordCount(progress: number, words: number): number {
   return Math.round(Math.min(1, Math.max(0, progress)) * words);
@@ -29,40 +26,59 @@ function compactNav(win: Window) {
   return () => win.removeEventListener?.('scroll', update);
 }
 
-function showPlayButtons(doc: Document) {
-  doc.querySelectorAll<HTMLButtonElement>('.e-video__play').forEach((btn) => {
-    const video = btn.parentElement?.querySelector('video');
-    if (!video) return;
+export function setupVideos(doc: Document, autoplay: boolean): () => void {
+  const videos = [...doc.querySelectorAll<HTMLVideoElement>('video[data-autoplay]')];
+  videos.forEach((video) => {
+    const btn = video.parentElement?.querySelector<HTMLButtonElement>('.e-video__play');
+    video.removeAttribute('controls');
+    if (!btn) return;
+    const sync = () => {
+      const playing = !video.paused;
+      btn.setAttribute('aria-pressed', String(playing));
+      btn.textContent = playing ? 'Pause' : 'Play';
+    };
     btn.hidden = false;
     btn.addEventListener('click', () => {
-      if (video.paused) void video.play();
+      if (video.paused) void video.play()?.catch?.(() => {});
       else video.pause();
+      sync();
     });
+    video.addEventListener?.('play', sync);
+    video.addEventListener?.('pause', sync);
+    sync();
   });
+  if (!autoplay || typeof IntersectionObserver === 'undefined' || videos.length === 0) return () => {};
+  const io = new IntersectionObserver(
+    (entries) => entries.forEach((e) => {
+      const v = e.target as HTMLVideoElement;
+      if (e.isIntersecting) void v.play().catch(() => {});
+      else v.pause();
+    }),
+    { threshold: 0.25 },
+  );
+  videos.forEach((v) => io.observe(v));
+  return () => io.disconnect();
 }
 
-function splitStatement(doc: Document): HTMLElement[] {
+export function splitStatement(doc: Document): HTMLElement[] {
   const p = doc.querySelector<HTMLElement>('[data-reveal]');
   if (!p) return [];
   const text = p.textContent?.trim() ?? '';
-  p.setAttribute('aria-label', text);
-  p.innerHTML = text
+  const esc = (w: string) => w.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  p.innerHTML = `<span class="sr-only">${esc(text)}</span><span aria-hidden="true">${text
     .split(/\s+/)
-    .map((w) => `<span class="w" aria-hidden="true">${w.replace(/</g, '&lt;')}</span>`)
-    .join(' ');
+    .map((w) => `<span class="w">${esc(w)}</span>`)
+    .join(' ')}</span>`;
   return [...p.querySelectorAll<HTMLElement>('.w')];
 }
 
-export function initMotion(win: Window = window): { reduced: boolean; teardown(): void } {
+async function initScroll(win: Window): Promise<() => void> {
   const doc = win.document;
-  const reduced = win.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const stopNav = compactNav(win);
-
-  if (reduced) {
-    showPlayButtons(doc);
-    return { reduced, teardown: stopNav };
-  }
-
+  const [{ default: Lenis }, { gsap }, { ScrollTrigger }] = await Promise.all([
+    import('lenis'),
+    import('gsap'),
+    import('gsap/ScrollTrigger'),
+  ]);
   gsap.registerPlugin(ScrollTrigger);
   const lenis = new Lenis({ lerp: 0.1 });
   lenis.on('scroll', ScrollTrigger.update);
@@ -71,7 +87,7 @@ export function initMotion(win: Window = window): { reduced: boolean; teardown()
   gsap.ticker.lagSmoothing(0);
   doc.documentElement.classList.add('lenis');
 
-  // Stack: as the next card slides over a card, the covered one scales down and dims.
+  // Stack: as the next card slides over a card, the covered one scales down and dims (only while cards stick).
   const cards = [...doc.querySelectorAll<HTMLElement>('[data-stack] > .e-card')];
   cards.forEach((card, i) => {
     const next = cards[i + 1];
@@ -82,9 +98,10 @@ export function initMotion(win: Window = window): { reduced: boolean; teardown()
       end: () => `top top+=${parseFloat(getComputedStyle(next).top) || 0}`,
       scrub: true,
       onUpdate: (self) => {
-        const s = stackStyle(self.progress);
-        card.style.transform = `scale(${s.scale})`;
-        card.style.filter = `brightness(${s.brightness})`;
+        if (getComputedStyle(card).position !== 'sticky') return;
+        const st = stackStyle(self.progress);
+        card.style.transform = `scale(${st.scale})`;
+        card.style.filter = `brightness(${st.brightness})`;
       },
     });
   });
@@ -93,7 +110,7 @@ export function initMotion(win: Window = window): { reduced: boolean; teardown()
   const words = splitStatement(doc);
   if (words.length) {
     ScrollTrigger.create({
-      trigger: words[0].parentElement!,
+      trigger: doc.querySelector('[data-reveal]')!,
       start: 'top 80%',
       end: 'bottom 40%',
       scrub: true,
@@ -123,25 +140,21 @@ export function initMotion(win: Window = window): { reduced: boolean; teardown()
     });
   });
 
-  // Videos: play when a quarter is in view, pause when out.
-  const io = new IntersectionObserver(
-    (entries) => entries.forEach((e) => {
-      const v = e.target as HTMLVideoElement;
-      if (e.isIntersecting) void v.play().catch(() => {});
-      else v.pause();
-    }),
-    { threshold: 0.25 },
-  );
-  doc.querySelectorAll<HTMLVideoElement>('video[data-autoplay]').forEach((v) => io.observe(v));
-
-  return {
-    reduced,
-    teardown() {
-      stopNav();
-      io.disconnect();
-      gsap.ticker.remove(tick);
-      ScrollTrigger.getAll().forEach((t) => t.kill());
-      lenis.destroy();
-    },
+  return () => {
+    gsap.ticker.remove(tick);
+    ScrollTrigger.getAll().forEach((t) => t.kill());
+    lenis.destroy();
   };
+}
+
+export function initMotion(win: Window = window, opts: { scroll?: boolean } = {}): { reduced: boolean; teardown(): void } {
+  const doc = win.document;
+  const reduced = win.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const stopNav = compactNav(win);
+  const stopVideos = setupVideos(doc, !reduced);
+  let stopScroll = () => {};
+  if (!reduced && opts.scroll) {
+    void initScroll(win).then((stop) => { stopScroll = stop; });
+  }
+  return { reduced, teardown() { stopNav(); stopVideos(); stopScroll(); } };
 }

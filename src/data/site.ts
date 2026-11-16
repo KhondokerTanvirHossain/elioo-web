@@ -1,19 +1,21 @@
+import { products } from './products';
+
 // Site-wide copy. Drafted from the design system README's "Real copy"; the owner approves it before launch.
 export const site = {
   copyApproved: false,
-  description: 'elioo is a one-person product studio in Dhaka: four AI products, designed, built and shipped by Tanvir Hossain.',
+  description: 'elioo is a one-person product studio in Dhaka: four AI products, designed and built by Tanvir Hossain.',
   hero: {
     before: 'Four products.',
     lineTwo: 'One',
     accent: 'builder.',
-    lede: 'A family of AI products, designed, built and shipped by one person in Dhaka.',
+    lede: 'A family of AI products, designed and built by one person in Dhaka.',
   },
   statement:
     'I build AI products for Bangladesh, from the first sketch to production, on my own. Each one solves one worry, and each one I built end to end.',
   productsHeading: { before: 'Four products. Each one', accent: 'solves one worry.' },
   stats: [
-    { n: 4, label: 'products designed, built and shipped' },
-    { n: 3, label: 'live today, used by real people' },
+    { n: products.length, label: 'products, designed and built by one person' },
+    { n: products.filter((p) => p.live).length, label: 'live today, used by real people' },
     { n: 1, label: 'builder, from design to deploy' },
   ],
   founder: {

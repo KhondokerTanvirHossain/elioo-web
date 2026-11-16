@@ -37,7 +37,7 @@ const hasPosts = (await getPublishedPosts()).length > 0;
     <Footer hasPosts={hasPosts} />
     <script>
       import { initMotion } from '../lib/motion';
-      initMotion();
+      initMotion(window, { scroll: document.querySelector('[data-stack]') !== null });
     </script>
   </body>
 </html>

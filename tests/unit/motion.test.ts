@@ -4,7 +4,7 @@ import { parseHTML } from 'linkedom';
 const lenisCtor = vi.fn();
 vi.mock('lenis', () => ({ default: class { constructor() { lenisCtor(); } raf() {} on() {} destroy() {} } }));
 
-import { litWordCount, stackStyle, countAt, initMotion } from '../../src/lib/motion';
+import { litWordCount, stackStyle, countAt, initMotion, splitStatement, setupVideos } from '../../src/lib/motion';
 
 test('litWordCount clamps and rounds', () => {
   expect(litWordCount(0, 20)).toBe(0);
@@ -53,4 +53,32 @@ test('reduced motion: no smooth scroll, no word split, play buttons shown, video
   expect(document.querySelectorAll('.e-statement .w').length).toBe(0);
   expect((document.querySelector('.e-video__play') as HTMLElement).hidden).toBe(false);
   expect(play).not.toHaveBeenCalled();
+});
+
+test('split statement keeps one readable copy for screen readers', () => {
+  const { document } = parseHTML('<p class="e-statement" data-reveal>I build AI products.</p>');
+  const words = splitStatement(document as unknown as Document);
+  expect(words.length).toBe(4);
+  const p = document.querySelector('.e-statement')!;
+  expect(p.hasAttribute('aria-label')).toBe(false);
+  expect(p.querySelector('.sr-only')?.textContent).toBe('I build AI products.');
+  expect(p.querySelector('[aria-hidden="true"]')?.querySelectorAll('.w').length).toBe(4);
+});
+test('videos always get a working pause control and lose native controls once enhanced', () => {
+  const { document } = parseHTML('<div class="e-video"><video data-autoplay controls></video><button class="e-video__play" hidden>Play</button></div>');
+  const v = document.querySelector('video')! as unknown as HTMLVideoElement;
+  let paused = false;
+  Object.defineProperty(v, 'paused', { get: () => paused });
+  Object.assign(v, { play: () => { paused = false; return Promise.resolve(); }, pause: () => { paused = true; } });
+  setupVideos(document as unknown as Document, false);
+  const btn = document.querySelector('.e-video__play') as HTMLButtonElement;
+  expect(btn.hidden).toBe(false);
+  expect(v.hasAttribute('controls')).toBe(false);
+  btn.click();
+  expect(paused).toBe(true);
+  expect(btn.getAttribute('aria-pressed')).toBe('false');
+  expect(btn.textContent).toContain('Play');
+  btn.click();
+  expect(paused).toBe(false);
+  expect(btn.textContent).toContain('Pause');
 });

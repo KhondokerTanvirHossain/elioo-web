@@ -73,3 +73,33 @@ test.describe('desktop motion', () => {
     expect(scale).toBeLessThan(1);
   });
 });
+
+test.describe('small phone', () => {
+  test.use({ viewport: { width: 375, height: 667 } });
+  test('cards do not stick, so each video slot scrolls fully into view', async ({ page }) => {
+    await page.goto(SITE + '/');
+    const media = page.locator('#product-medioo .e-video');
+    await media.scrollIntoViewIfNeeded();
+    const box = await media.boundingBox();
+    expect(box!.y).toBeGreaterThanOrEqual(0);
+    expect(box!.y + box!.height).toBeLessThanOrEqual(667);
+    const position = await page.evaluate(() => getComputedStyle(document.querySelector('#product-medioo')!).position);
+    expect(position).not.toBe('sticky');
+  });
+});
+
+test('smooth scrolling and scroll motion load only on the home page', async ({ page }) => {
+  const loaded: string[] = [];
+  page.on('request', (r) => loaded.push(r.url()));
+  await page.goto(SITE + '/bolo');
+  await page.waitForLoadState('networkidle');
+  expect(await page.evaluate(() => document.documentElement.classList.contains('lenis'))).toBe(false);
+  const productPageJs = new Set(loaded.filter((u) => u.endsWith('.js')));
+  const homeLoaded: string[] = [];
+  page.on('request', (r) => homeLoaded.push(r.url()));
+  await page.goto(SITE + '/');
+  await page.waitForLoadState('networkidle');
+  expect(await page.evaluate(() => document.documentElement.classList.contains('lenis'))).toBe(true);
+  const extra = homeLoaded.filter((u) => u.endsWith('.js') && !productPageJs.has(u));
+  expect(extra.length).toBeGreaterThan(0);
+});

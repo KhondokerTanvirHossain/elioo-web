@@ -21,7 +21,8 @@
 	try_files {path} {path}/index.html {path}.html
 	file_server
 
-	handle_errors 404 {
+	handle_errors {
+		header Cache-Control "no-store"
 		rewrite * /404.html
 		file_server
 	}

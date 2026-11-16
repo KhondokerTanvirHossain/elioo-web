@@ -26,7 +26,10 @@ By hand on the box:
 Never restart, recreate or `docker compose up` the Caddy container: every site on the box goes down. Instead:
 
     cp ~/n8n/Caddyfile ~/n8n/Caddyfile.bak-$(date -u +%Y%m%dT%H%M%SZ)
-    # edit in place (append with >>, or sed -i); do not replace the file, it is bind-mounted
+    # The file is bind-mounted: never replace it (no in-place sed, no editor that saves a new file).
+    # Append with >>, or edit a copy and write it back over the same file:
+    #   sed 's/old/new/' ~/n8n/Caddyfile > /tmp/Caddyfile.new && cat /tmp/Caddyfile.new > ~/n8n/Caddyfile
+    docker exec n8n-caddy-1 cat /etc/caddy/Caddyfile | diff - ~/n8n/Caddyfile   # must print nothing
     docker exec n8n-caddy-1 caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile
     docker exec n8n-caddy-1 caddy reload --config /etc/caddy/Caddyfile --adapter caddyfile
     for h in medioo bolo drugdb; do curl -s -o /dev/null -w "$h %{http_code}\n" https://$h.eliooo.org/; done

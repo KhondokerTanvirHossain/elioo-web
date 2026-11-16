@@ -17,3 +17,8 @@ img, video { max-width: 100%; }
 @media (min-width: 1280px) { .e-frame { padding-inline: var(--s-8); } }
 .e-section { padding-block: var(--s-9); }
 @media (min-width: 1024px) { .e-section { padding-block: var(--s-10); } }
+
+/* Stacking needs a card to fit the screen; on phones and short screens cards scroll normally. */
+@media (max-width: 860px), (max-height: 700px) {
+  .e-stack > .e-card { position: relative; top: auto; box-shadow: none; }
+}
