@@ -22,4 +22,4 @@ Add `src/content/blog/<slug>.md` with `title`, `description` and `date` in the f
 
 ## Deploy
 
-Pushes to `main` build a container image and deploy it to the EC2 box (see `docs/RUNBOOK.md`).
+Pushes to `main` build a container image and deploy it to the EC2 box, then smoke-test https://eliooo.org and roll back on failure (see `docs/RUNBOOK.md`). Vercel is no longer used for this site.
