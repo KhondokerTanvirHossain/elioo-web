@@ -39,7 +39,7 @@ test.describe('JavaScript disabled', () => {
   test.use({ javaScriptEnabled: false });
   test('home still reads completely', async ({ page }) => {
     await page.goto(SITE + '/');
-    await expect(page.locator('.e-statement')).toContainText('I build AI products for Bangladesh');
+    await expect(page.locator('.e-statement')).toContainText('Engineering is what makes it safe to rely on');
     for (const slug of ['medioo', 'bolo', 'finioo', 'intellidrugs']) {
       const card = page.locator(`#product-${slug}`);
       await card.scrollIntoViewIfNeeded();

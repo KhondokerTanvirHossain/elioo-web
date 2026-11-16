@@ -40,3 +40,10 @@ test('copy has no emoji or exclamation marks', () => {
 test('copy starts unapproved (launch gate)', () => {
   expect(products.every((p) => p.copyApproved === false)).toBe(true);
 });
+
+test('every product states the worry it solves, without naming a country', () => {
+  for (const p of products) {
+    expect(p.worry.length).toBeGreaterThan(30);
+    expect(p.worry).not.toMatch(/Bangladesh/);
+  }
+});

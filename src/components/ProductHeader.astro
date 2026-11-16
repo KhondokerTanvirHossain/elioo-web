@@ -4,10 +4,12 @@ import { tryUrl } from '../data/products';
 import StatusLabel from './StatusLabel.astro';
 import VideoSlot from './VideoSlot.astro';
 import { findVideo } from '../lib/video';
+import Demo from './demos/Demo.astro';
 
 interface Props { product: Product }
 const { product: p } = Astro.props;
 const url = tryUrl(p);
+const video = p.video ?? findVideo(p.slug);
 ---
 <header class={`e-card e-card--${p.theme} e-product-header`}>
   <div class="e-card__copy">
@@ -25,7 +27,9 @@ const url = tryUrl(p);
     </div>
   </div>
   <div class="e-card__media">
-    <VideoSlot theme={p.theme} label={`A short film of ${p.name}`} video={p.video ?? findVideo(p.slug)} placeholder={p.placeholder} />
+    <VideoSlot theme={p.theme} label={`A short film of ${p.name}`} video={video} placeholder={p.placeholder}>
+      {!video && <Demo theme={p.theme} />}
+    </VideoSlot>
   </div>
   <p class="e-card__num" aria-hidden="true">{p.num}</p>
 </header>
