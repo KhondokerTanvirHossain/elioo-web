@@ -21,8 +21,21 @@ export const site = {
   founder: {
     first: 'Tanvir',
     last: 'Hossain',
-    photo: '/images/tanvir.jpg',
-    bio: "I'm a senior software engineer in Dhaka. I've spent years building banking, government and healthcare systems; elioo is where I design, build and ship my own products end to end.",
+    portrait: { src: '/images/tanvir-portrait.jpg', width: 1086, height: 1448 },
+    role: 'Senior software engineer in Dhaka. A backend Java engineer who grew into owning delivery, platform and product for regulated systems.',
+    bio: "I've spent my career on banking, government and healthcare systems, the kind where downtime and wrong numbers are not an option. elioo is where I take everything I learned there and build my own products, end to end: the design, the code, the infrastructure and the launch.",
+    facts: [
+      { n: '583K+', label: 'customers on an internet bank I helped build' },
+      { n: '600K+', label: 'weekly transactions on a national microfinance platform' },
+      { n: '100%', label: 'pass on a HIPAA compliance scan for a US health startup' },
+    ],
+    work: [
+      { name: 'Better Health', what: 'Product and platform owner, digital prescriptions', years: '2025 – now', href: 'https://tanvir.eliooo.org/work/better-health' },
+      { name: 'Primefocus Health', what: 'Engineering manager and architect, remote patient monitoring', years: '2024 – 2025', href: 'https://tanvir.eliooo.org/work/primefocus-rpm' },
+      { name: 'MRA-IMS', what: 'Team lead, national microfinance platform', years: '2023 – 2024', href: 'https://tanvir.eliooo.org/work/mra-ims' },
+      { name: 'Agrani Internet Banking', what: 'Backend engineer, then the face to the bank', years: '2021 – 2023', href: 'https://tanvir.eliooo.org/work/agrani-internet-banking' },
+    ],
+    portfolio: 'https://tanvir.eliooo.org',
     links: [
       { label: 'Portfolio', href: 'https://tanvir.eliooo.org' },
       { label: 'GitHub', href: 'https://github.com/KhondokerTanvirHossain' },
