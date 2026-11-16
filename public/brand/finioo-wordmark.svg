@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 336" width="1000" height="336">
+<title>Finioo wordmark</title>
+<defs>
+    
+    <g id="fini">
+      <rect x="292" y="420" width="54" height="232" rx="7"></rect>
+      <rect x="292" y="420" width="173" height="47" rx="7"></rect>
+      <rect x="292" y="513" width="155" height="45" rx="7"></rect>
+      <rect x="482" y="487" width="52" height="165" rx="7"></rect>
+      <circle cx="508" cy="442" r="28"></circle>
+      <rect x="556" y="487" width="53" height="165" rx="7"></rect>
+      <path d="M556 570 C556 515 592 484 643 484 C695 484 731 517 731 570 L731 645 Q731 652 724 652 L685 652 Q678 652 678 645 L678 572 C678 545 664 529 644 529 C622 529 609 546 609 572 Z"></path>
+      <rect x="752" y="487" width="53" height="165" rx="7"></rect>
+      <circle cx="779" cy="442" r="28"></circle>
+    </g>
+    
+    <g id="wm-ear">
+      <path fill="#F08223" d="M858 482 C850 430 855 386 873 352 C924 372 966 410 994 454 C958 452 902 460 858 482 Z"></path>
+      <path fill="#F9C494" d="M882 467 C879 438 882 414 889 397 C914 412 934 431 948 453 C925 452 903 457 882 467 Z"></path>
+    </g>
+    
+    <g id="wm-glasses">
+      <circle cx="922" cy="565" r="85" fill="none" stroke="#FFFAF2" stroke-width="44"></circle>
+      <circle cx="1144" cy="565" r="85" fill="none" stroke="#FFFAF2" stroke-width="44"></circle>
+      <circle cx="922" cy="565" r="85" fill="none" stroke="#1F4D3A" stroke-width="26"></circle>
+      <circle cx="1144" cy="565" r="85" fill="none" stroke="#1F4D3A" stroke-width="26"></circle>
+      <circle cx="941" cy="567" r="27" fill="#1F4D3A"></circle>
+      <circle cx="1125" cy="567" r="27" fill="#1F4D3A"></circle>
+      <rect x="992" y="551" width="82" height="28" rx="10" fill="#F08223"></rect>
+    </g>
+
+    <symbol id="wordmark" viewBox="276 336 1000 336">
+      <use href="#wm-ear"></use>
+      <use href="#wm-ear" transform="translate(2066 0) scale(-1 1)"></use>
+      <use href="#fini" fill="#1F4D3A"></use>
+      <use href="#wm-glasses"></use>
+    </symbol>
+    <symbol id="wordmark-compact" viewBox="276 404 1000 268">
+      <use href="#fini" fill="#1F4D3A"></use>
+      <use href="#wm-glasses"></use>
+    </symbol>
+
+    
+    <g id="fox-ear">
+      <path fill="#F08223" d="M332 612 C316 520 318 400 340 300 C424 334 494 392 548 458 Z"></path>
+      <path fill="#F9C494" d="M366 548 C359 486 361 425 371 378 C417 404 457 440 491 480 Z"></path>
+      <path fill="#DC731C" d="M371 378 C424 400 476 442 522 474 L491 480 C457 440 417 404 371 378 Z"></path>
+    </g>
+    <clipPath id="lensL"><circle cx="470" cy="692" r="104"></circle></clipPath>
+    <clipPath id="lensR"><circle cx="784" cy="692" r="104"></circle></clipPath>
+    <symbol id="fox-head" viewBox="214 284 826 696">
+      <use href="#fox-ear"></use>
+      <use href="#fox-ear" transform="translate(1254 0) scale(-1 1)"></use>
+      
+      <path fill="#F08223" d="M236 690 C300 640 330 560 398 506 C458 460 540 440 627 440 C714 440 796 460 856 506 C924 560 954 640 1018 690 C990 728 962 744 940 748 L314 748 C292 744 264 728 236 690 Z"></path>
+      
+      <path fill="#FFFAF2" d="M288 746 L966 746 Q790 838 627 966 Q464 838 288 746 Z"></path>
+      <ellipse fill="#F9C494" cx="627" cy="742" rx="38" ry="26" opacity=".8"></ellipse>
+      
+      <circle cx="470" cy="692" r="104" fill="#FFF8EE"></circle>
+      <circle cx="784" cy="692" r="104" fill="#FFF8EE"></circle>
+      <ellipse clip-path="url(#lensL)" cx="470" cy="598" rx="130" ry="44" fill="#F08223"></ellipse>
+      <ellipse clip-path="url(#lensR)" cx="784" cy="598" rx="130" ry="44" fill="#F08223"></ellipse>
+      
+      <circle cx="470" cy="692" r="112" fill="none" stroke="#1F4D3A" stroke-width="22"></circle>
+      <circle cx="784" cy="692" r="112" fill="none" stroke="#1F4D3A" stroke-width="22"></circle>
+      <path d="M580 668 Q627 640 674 668" fill="none" stroke="#1F4D3A" stroke-width="18" stroke-linecap="round"></path>
+      <rect x="300" y="666" width="62" height="22" rx="11" fill="#1F4D3A"></rect>
+      <rect x="892" y="666" width="62" height="22" rx="11" fill="#1F4D3A"></rect>
+      
+      <circle cx="497" cy="692" r="34" fill="#1F4D3A"></circle>
+      <circle cx="757" cy="692" r="34" fill="#1F4D3A"></circle>
+      <path fill="#1F4D3A" d="M596 776 Q627 768 658 776 Q666 780 660 788 L634 822 Q627 830 620 822 L594 788 Q588 780 596 776 Z"></path>
+    </symbol>
+
+    
+    <symbol id="app-icon" viewBox="0 0 1024 1024">
+      <rect width="1024" height="1024" fill="#1F4D3A"></rect>
+      <svg x="122" y="150" width="780" height="660" viewBox="0 0 826 696"><use href="#fox-head"></use></svg>
+    </symbol>
+
+    
+    <symbol id="favicon" viewBox="0 0 64 64">
+      <path fill="#F08223" d="M9 33 C8 24 9 15 11 7 C17 10 22 14 26 19 L38 19 C42 14 47 10 53 7 C55 15 56 24 55 33 L60 36 C56 41 52 42 50 42 L32 58 L14 42 C12 42 8 41 4 36 Z"></path>
+      <path fill="#FFFAF2" d="M9 43 L55 43 Q42 50 32 58 Q22 50 9 43 Z"></path>
+      <circle cx="22" cy="35" r="9.5" fill="#FFF8EE" stroke="#1F4D3A" stroke-width="4"></circle>
+      <circle cx="42" cy="35" r="9.5" fill="#FFF8EE" stroke="#1F4D3A" stroke-width="4"></circle>
+      <circle cx="24" cy="35" r="3.8" fill="#1F4D3A"></circle>
+      <circle cx="40" cy="35" r="3.8" fill="#1F4D3A"></circle>
+      <path fill="#1F4D3A" d="M29.5 45 L34.5 45 L32 48.5 Z"></path>
+    </symbol>
+  </defs>
+<use href="#wordmark" width="1000" height="336"></use>
+</svg>
