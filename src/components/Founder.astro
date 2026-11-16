@@ -12,7 +12,7 @@ const f = site.founder;
     <p class="e-founder__role">{f.role}</p>
     <p class="e-founder2__bio">{f.bio}</p>
 
-    <ul class="e-founder2__facts" aria-label="Proof points">
+    <ul class="e-founder2__facts">
       {f.facts.map((x) => <li class="e-founder__fact"><b>{x.n}</b><span>{x.label}</span></li>)}
     </ul>
 
