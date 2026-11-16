@@ -32,7 +32,7 @@ const f = site.founder;
     </div>
 
     <div class="e-founder2__actions">
-      <a class="e-btn e-btn--primary" href={f.portfolio} target="_blank" rel="me noopener">See my work <span class="e-arrow" aria-hidden="true">↗</span></a>
+      <a class="e-btn e-btn--primary" href={f.portfolio} rel="me">About me <span class="e-arrow" aria-hidden="true">↗</span></a>
       {f.links.filter((l) => l.label !== 'Portfolio').map((l) => <a class="e-btn e-btn--ghost" href={l.href} target="_blank" rel="me noopener">{l.label} <span class="e-arrow" aria-hidden="true">↗</span></a>)}
     </div>
   </div>

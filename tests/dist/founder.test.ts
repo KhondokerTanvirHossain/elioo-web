@@ -28,5 +28,5 @@ test('where I have built links to each case study', () => {
 test('see my work is the primary action', () => {
   const a = f.querySelector('.e-btn--primary')!;
   expect(a.getAttribute('href')).toBe('https://tanvir.eliooo.org');
-  expect(a.textContent).toContain('See my work');
+  expect(a.textContent).toContain('About me');
 });
