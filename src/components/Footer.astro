@@ -1,0 +1,40 @@
+---
+import Wordmark from './Wordmark.astro';
+import { products } from '../data/products';
+import { site } from '../data/site';
+interface Props { hasPosts: boolean }
+const { hasPosts } = Astro.props;
+const year = new Date().getFullYear();
+---
+<footer class="e-frame">
+  <div class="e-footer">
+    <div>
+      <Wordmark />
+      <p style="margin:var(--s-4) 0 0;color:var(--ink-2);max-width:30ch">A one-person product studio in Dhaka.</p>
+    </div>
+    <div>
+      <h2 class="e-footer__h">Products</h2>
+      <ul>{products.map((p) => <li><a href={`/${p.slug}`}>{p.name}</a></li>)}</ul>
+    </div>
+    <div>
+      <h2 class="e-footer__h">Site</h2>
+      <ul>
+        {hasPosts && <li><a href="/blog">Blog</a></li>}
+        <li><a href="/#founder">Founder</a></li>
+        {hasPosts && <li><a href="/rss.xml">RSS</a></li>}
+      </ul>
+    </div>
+    <div>
+      <h2 class="e-footer__h">Elsewhere</h2>
+      <ul>{site.founder.links.map((l) => <li><a href={l.href} rel="noopener" target="_blank">{l.label} <span aria-hidden="true">↗</span></a></li>)}</ul>
+    </div>
+    <div class="e-footer__small">
+      <span>© {year} elioo · eliooo.org</span>
+      <a href={site.source} rel="noopener" target="_blank">Source <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+</footer>
+
+<style is:global>
+  .e-footer__h { margin: 0 0 var(--s-3); font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+</style>

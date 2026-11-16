@@ -11,7 +11,7 @@
     "test": "vitest run tests/unit",
     "test:dist": "vitest run tests/dist",
     "test:e2e": "playwright test",
-    "check": "astro check && npm test && npm run build",
+    "check": "astro check && npm test && npm run build && node scripts/check-video-budget.mjs",
     "build:fixtures": "BLOG_DIR=./tests/fixtures/blog astro build --outDir dist-fixtures"
   },
   "dependencies": {
